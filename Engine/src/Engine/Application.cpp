@@ -3,13 +3,10 @@
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Log.h"
 
-#include <GLFW/glfw3.h>
-
 namespace Engine
 {
 	Application::Application()
 	{
-		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 
 	Application::~Application()
@@ -18,11 +15,16 @@ namespace Engine
 
 	void Application::Run()
 	{
-		while (m_Running)
+		WindowResizeEvent e(1280, 720);
+		if (e.IsInCategory(EventCategory::EventCategoryApplication))
 		{
-			glClearColor(1, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
-			m_Window->OnUpdate();
+			LOG_TRACE(e);
 		}
+		if (e.IsInCategory(EventCategory::EventCategoryInput))
+		{
+			LOG_TRACE(e);
+		}
+
+		while (true);
 	}
 }

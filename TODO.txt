@@ -1,4 +1,0 @@
-1. WindowLostFocus
-2. WindowFocus
-3. Queued event system
-4. GLFW implementation

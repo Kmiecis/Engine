@@ -10,12 +10,6 @@ workspace "Engine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-IncludeDir = {}
-IncludeDir["spdlog"] = "Engine/vendor/spdlog/include"
-IncludeDir["GLFW"] = "Engine/vendor/GLFW/include"
-
-include "Engine/vendor/GLFW" -- Includes .lua files at this directory
-
 project "Engine"
 	location "Engine"
 	kind "SharedLib"
@@ -23,12 +17,7 @@ project "Engine"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-	--[[
-	pchheader "enginepch.h"
-	pchsource "Engine/src/enginepch.cpp"
-	]]--
-	
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -38,14 +27,7 @@ project "Engine"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
-	}
-	
-	links
-	{
-		"GLFW",
-		"opengl32.lib"
+		"%{prj.name}/vendor/spdlog/include"
 	}
 
 	filter "system:windows"
