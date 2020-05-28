@@ -2,9 +2,6 @@
 
 #include "Engine/Core.h"
 
-#include <string>
-#include <functional>
-
 namespace Engine
 {
 	// Events are currently implemented as 'blocking', which means that they have to be immediately dealt with.
