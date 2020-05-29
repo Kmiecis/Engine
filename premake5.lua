@@ -14,10 +14,12 @@ IncludeDir = {}
 IncludeDir["spdlog"] = "Engine/vendor/spdlog/include"
 IncludeDir["glfw"] = "Engine/vendor/glfw/include"
 IncludeDir["glad"] = "Engine/vendor/glad/include"
+IncludeDir["imgui"] = "Engine/vendor/imgui"
 
 -- Includes .lua files at this directory
 include "Engine/vendor/glfw"
 include "Engine/vendor/glad"
+include "Engine/vendor/imgui"
 
 project "Engine"
 	location "Engine"
@@ -38,13 +40,15 @@ project "Engine"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.glfw}",
-		"%{IncludeDir.glad}"
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.imgui}"
 	}
 	
 	links
 	{
 		"GLFW",
 		"glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 
