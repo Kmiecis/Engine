@@ -12,9 +12,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["spdlog"] = "Engine/vendor/spdlog/include"
-IncludeDir["GLFW"] = "Engine/vendor/GLFW/include"
+IncludeDir["glfw"] = "Engine/vendor/glfw/include"
+IncludeDir["glad"] = "Engine/vendor/glad/include"
 
-include "Engine/vendor/GLFW" -- Includes .lua files at this directory
+-- Includes .lua files at this directory
+include "Engine/vendor/glfw"
+include "Engine/vendor/glad"
 
 project "Engine"
 	location "Engine"
@@ -34,12 +37,14 @@ project "Engine"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.glfw}",
+		"%{IncludeDir.glad}"
 	}
 	
 	links
 	{
 		"GLFW",
+		"glad",
 		"opengl32.lib"
 	}
 
@@ -51,7 +56,8 @@ project "Engine"
 		defines
 		{
 			"ENGINE_PLATFORM_WINDOWS",
-			"ENGINE_BUILD_DLL"
+			"ENGINE_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
