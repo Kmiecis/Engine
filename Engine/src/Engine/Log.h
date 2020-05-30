@@ -36,6 +36,10 @@ namespace Engine
 #define LOG_ERROR(...)	::Engine::Log::GetClientLogger()->error(__VA_ARGS__)
 #define LOG_FATAL(...)	::Engine::Log::GetClientLogger()->fatal(__VA_ARGS__)
 
+#ifdef ENGINE_DEBUG
+	//#define ENGINE_ENABLE_ASSERT
+#endif
+
 #ifdef ENGINE_ENABLE_ASSERT
 	#define LOG_CORE_ASSERT(x, ...) { if(!(x)) { LOG_CORE_ERROR("Assertion failed: {0}", __VA_ARGS__); __debugBreak(); } }
 	#define LOG_ASSERT(x, ...) { if(!(x)) { LOG_ERROR("Assertion failed: {0}", __VA_ARGS__); __debugBreak(); } }
