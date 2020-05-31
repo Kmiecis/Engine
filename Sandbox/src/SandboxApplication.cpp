@@ -10,12 +10,19 @@ public:
 
 	void OnUpdate() override
 	{
-		LOG_INFO("ExampleLayer::OnUpdate");
+		if (Engine::Input::IsKeyPressed(ENGINE_KEY_TAB))
+		{
+			LOG_TRACE("Tab key is pressed!");
+		}
 	}
 
 	void OnEvent(Engine::Event& event) override
 	{
-		LOG_TRACE("{0}", event);
+		if (event.GetEventType() == Engine::EventType::KeyPressed)
+		{
+			Engine::KeyPressedEvent& e = (Engine::KeyPressedEvent&)event;
+			LOG_TRACE((char)e.GetKeyCode());
+		}
 	}
 
 };
