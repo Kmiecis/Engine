@@ -46,6 +46,12 @@
     <ClInclude Include="src\Engine\ImGui\ImGuiLayer.h">
       <Filter>Engine\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Input.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\KeyCodes.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine\Layer.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -55,8 +61,14 @@
     <ClInclude Include="src\Engine\Log.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\MouseButtonCodes.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine\Platform\OpenGL\ImGuiOpenGLRenderer.h">
       <Filter>Engine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Platform\Windows\WindowsInput.h">
+      <Filter>Engine\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Platform\Windows\WindowsWindow.h">
       <Filter>Engine\Platform\Windows</Filter>
@@ -64,10 +76,6 @@
     <ClInclude Include="src\Engine\Window.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Input.h" />
-    <ClInclude Include="src\Engine\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\Engine\KeyCodes.h" />
-    <ClInclude Include="src\Engine\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Application.cpp">
@@ -88,9 +96,11 @@
     <ClCompile Include="src\Engine\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
       <Filter>Engine\Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Platform\Windows\WindowsInput.cpp">
+      <Filter>Engine\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Engine\Platform\Windows\WindowsWindow.cpp">
       <Filter>Engine\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>
