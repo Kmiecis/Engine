@@ -46,10 +46,10 @@ namespace Engine
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsInCategory(EventCategory category)
-		{
-			return GetCategoryFlags() & category;
-		}
+#pragma warning (push)
+#pragma warning (disable: 26812)
+		inline bool IsInCategory(EventCategory category) { return GetCategoryFlags() & (int)category; }
+#pragma warning (pop)
 	};
 
 	class EventDispatcher
