@@ -9,6 +9,7 @@
 #include "Engine/Renderer/Shader.h"
 #include "Engine/Renderer/Buffer.h"
 #include "Engine/Renderer/VertexArray.h"
+#include "Engine/Renderer/OrthographicCamera.h"
 
 namespace Engine
 {
@@ -42,6 +43,8 @@ namespace Engine
 
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVertexArray;
+
+		OrthographicCamera m_Camera;
 
 		static Application* s_Instance;
 	};
