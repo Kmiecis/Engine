@@ -1,19 +1,16 @@
 #pragma once
 
 #include "Engine/Core.h"
+#include "Engine/Core/Timestep.h"
 #include "Engine/Events/Event.h"
 #include "Engine/Window.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/LayerStack.h"
 #include "Engine/ImGui/ImGuiLayer.h"
-#include "Engine/Renderer/Shader.h"
-#include "Engine/Renderer/Buffer.h"
-#include "Engine/Renderer/VertexArray.h"
-#include "Engine/Renderer/OrthographicCamera.h"
 
 namespace Engine
 {
-	class ENGINE_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -37,14 +34,7 @@ namespace Engine
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVertexArray;
-
-		OrthographicCamera m_Camera;
+		float m_LastFrameTime = 0.0f;
 
 		static Application* s_Instance;
 	};
