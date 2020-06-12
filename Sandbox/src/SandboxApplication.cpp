@@ -20,7 +20,7 @@ public:
 			+0.0f, +0.5f, 0.0f, 0.2f, 0.2f, 0.8f, 1.0f,
 		};
 
-		std::shared_ptr<Engine::VertexBuffer> vertexBuffer;
+		Engine::Ref<Engine::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
 		Engine::BufferLayout layout = {
 			{ Engine::ShaderDataType::Float3, "a_Position" },
@@ -33,7 +33,7 @@ public:
 			0, 1, 2
 		};
 
-		std::shared_ptr<Engine::IndexBuffer> indexBuffer;
+		Engine::Ref<Engine::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Engine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -46,7 +46,7 @@ public:
 			-0.75f, +0.75f, 0.0f
 		};
 
-		std::shared_ptr<Engine::VertexBuffer> squareVertexBuffer;
+		Engine::Ref<Engine::VertexBuffer> squareVertexBuffer;
 		squareVertexBuffer.reset(Engine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVertexBuffer->SetLayout({
 			{ Engine::ShaderDataType::Float3, "a_Position" }
@@ -57,7 +57,7 @@ public:
 			0, 1, 2, 2, 3, 0
 		};
 
-		std::shared_ptr<Engine::IndexBuffer> squareIndexBuffer;
+		Engine::Ref<Engine::IndexBuffer> squareIndexBuffer;
 		squareIndexBuffer.reset(Engine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
 
@@ -167,7 +167,7 @@ public:
 
 		Engine::Renderer::BeginScene(m_Camera);
 		
-		std::shared_ptr<Engine::OpenGLShader> trueFlatColorShader = std::dynamic_pointer_cast<Engine::OpenGLShader>(m_FlatColorShader);
+		Engine::Ref<Engine::OpenGLShader> trueFlatColorShader = std::dynamic_pointer_cast<Engine::OpenGLShader>(m_FlatColorShader);
 		trueFlatColorShader->Bind();
 		trueFlatColorShader->UploadUniformFloat3("u_Color", m_SquareColor);
 
@@ -198,11 +198,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<Engine::Shader> m_Shader;
-	std::shared_ptr<Engine::VertexArray> m_VertexArray;
+	Engine::Ref<Engine::Shader> m_Shader;
+	Engine::Ref<Engine::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Engine::Shader> m_FlatColorShader;
-	std::shared_ptr<Engine::VertexArray> m_SquareVertexArray;
+	Engine::Ref<Engine::Shader> m_FlatColorShader;
+	Engine::Ref<Engine::VertexArray> m_SquareVertexArray;
 
 	Engine::OrthographicCamera m_Camera;
 	float m_CameraMoveSpeed = 10.0f;
