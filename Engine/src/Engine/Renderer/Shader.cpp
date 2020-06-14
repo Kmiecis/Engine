@@ -5,7 +5,7 @@
 
 namespace Engine
 {
-	Shader* Shader::Create(const std::string& filepath)
+	Ref<Shader> Shader::Create(const std::string& filepath)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -14,14 +14,14 @@ namespace Engine
 				return nullptr;
 
 			case RendererAPI::API::OpenGL:
-				return new OpenGLShader(filepath);
+				return std::make_shared<OpenGLShader>(filepath);
 		}
 
 		LOG_CORE_ASSERT(false, "RendererAPI::Unknown");
 		return nullptr;
 	}
 
-	Shader* Shader::Create(const std::string& vertexSource, const std::string& fragmentSource)
+	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSource, const std::string& fragmentSource)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -30,7 +30,7 @@ namespace Engine
 				return nullptr;
 
 			case RendererAPI::API::OpenGL:
-				return new OpenGLShader(vertexSource, fragmentSource);
+				return std::make_shared<OpenGLShader>(name, vertexSource, fragmentSource);
 		}
 
 		LOG_CORE_ASSERT(false, "RendererAPI::Unknown");

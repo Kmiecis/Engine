@@ -27,9 +27,12 @@ namespace Engine
 		std::string source = ReadFile(filepath);
 		auto sources = PreProcess(source);
 		Compile(sources);
+
+		m_Name = ExtractNameFromFilepath(filepath);
 	}
 	
-	OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::string& fragmentSource)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSource, const std::string& fragmentSource)
+		: m_Name(name)
 	{
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSource;
@@ -90,6 +93,16 @@ namespace Engine
 	int OpenGLShader::GetUniformLocation(const std::string& name) const
 	{
 		return glGetUniformLocation(m_RendererID, name.c_str());
+	}
+
+	std::string OpenGLShader::ExtractNameFromFilepath(const std::string& filepath)
+	{
+		auto lastSlash = filepath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = filepath.rfind('.');
+		lastDot = lastDot == std::string::npos ? filepath.size() : lastDot;
+		auto count = lastDot - lastSlash;
+		return filepath.substr(lastSlash, count);
 	}
 	
 	std::string OpenGLShader::ReadFile(const std::string& filepath) const
