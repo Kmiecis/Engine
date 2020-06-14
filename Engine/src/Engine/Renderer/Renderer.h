@@ -12,8 +12,11 @@ namespace Engine
 	class Renderer
 	{
 	public:
+		static void Init();
+
 		static void BeginScene(const OrthographicCamera& camera);
 		static void EndScene();
+
 		static void Submit(
 			const Ref<Shader>& shader,
 			const Ref<VertexArray>& vertexArray,

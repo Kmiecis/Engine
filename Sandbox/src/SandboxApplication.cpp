@@ -170,7 +170,8 @@ public:
 
 		m_TextureShader.reset(Engine::Shader::Create(textureShaderVertexSource, textureShaderFragmentSource));
 
-		m_Texture = Engine::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_BackgroundTexture = Engine::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_ChernoLogoTexture = Engine::Texture2D::Create("assets/textures/ChernoLogo.png");
 
 		Engine::Ref<Engine::OpenGLShader> trueTextureShader = std::dynamic_pointer_cast<Engine::OpenGLShader>(m_TextureShader);
 		trueTextureShader->Bind();
@@ -226,7 +227,10 @@ public:
 			}
 		}
 
-		m_Texture->Bind();
+		m_BackgroundTexture->Bind();
+		Engine::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		m_ChernoLogoTexture->Bind();
 		Engine::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		// Triangle
@@ -254,7 +258,8 @@ private:
 	Engine::Ref<Engine::VertexArray> m_SquareVertexArray;
 
 	Engine::Ref<Engine::Shader> m_TextureShader;
-	Engine::Ref<Engine::Texture> m_Texture;
+	Engine::Ref<Engine::Texture> m_BackgroundTexture;
+	Engine::Ref<Engine::Texture> m_ChernoLogoTexture;
 
 	Engine::OrthographicCamera m_Camera;
 	float m_CameraMoveSpeed = 10.0f;
