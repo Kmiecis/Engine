@@ -2,6 +2,7 @@
 
 #include "Engine/Log.h"
 
+#include <array>
 #include <fstream>
 #include <vector>
 
@@ -94,7 +95,7 @@ namespace Engine
 	std::string OpenGLShader::ReadFile(const std::string& filepath) const
 	{
 		std::string result;
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in.is_open())
 		{
 			in.seekg(0, std::ios::end);
@@ -140,7 +141,9 @@ namespace Engine
 		// Get a program object.
 		GLuint program = glCreateProgram();
 
-		std::vector<GLuint> glShaderIds(sources.size());
+		LOG_CORE_ASSERT(sources.size() <= 2, "Only 2 shaders are supported now");
+		std::array<GLuint, 2> glShaderIds;
+		int glShaderIdsIndex = 0;
 		for (auto& kv : sources)
 		{
 			GLenum type = kv.first;
@@ -183,7 +186,7 @@ namespace Engine
 			// Now time to link it into a program.
 			glAttachShader(program, shader);
 
-			glShaderIds.push_back(shader);
+			glShaderIds[glShaderIdsIndex++] = shader;
 		}
 
 		// Link our program
