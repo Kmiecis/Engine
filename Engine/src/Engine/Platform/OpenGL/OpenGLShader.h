@@ -2,13 +2,20 @@
 
 #include "Engine/Renderer/Shader.h"
 
+#include <string>
+#include <unordered_map>
+
 #include <glm/glm.hpp>
+
+// TODO: REMOVE!
+typedef unsigned int GLenum;
 
 namespace Engine
 {
 	class OpenGLShader : public Shader
 	{
 	public:
+		OpenGLShader(const std::string& filepath);
 		OpenGLShader(const std::string& vertexSource, const std::string& fragmentSource);
 		virtual ~OpenGLShader();
 
@@ -25,6 +32,9 @@ namespace Engine
 
 	private:
 		int GetUniformLocation(const std::string& name) const;
+		std::string ReadFile(const std::string& filepath) const;
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
+		void Compile(const std::unordered_map<GLenum, std::string>& sources);
 
 	private:
 		uint32_t m_RendererID = 0;
