@@ -1,6 +1,6 @@
 #include "VertexArray.h"
 
-#include "Renderer.h"
+#include "Engine/Renderer/Renderer.h"
 #include "Engine/Platform/OpenGL/OpenGLVertexArray.h"
 
 namespace Engine

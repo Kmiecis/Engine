@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core.h"
+#include "Engine/Core/Core.h"
 
 #include <memory>
 #include <spdlog/spdlog.h>
@@ -8,7 +8,7 @@
 
 namespace Engine
 {
-	class ENGINE_API Log
+	class Log
 	{
 	public:
 		static void Init();

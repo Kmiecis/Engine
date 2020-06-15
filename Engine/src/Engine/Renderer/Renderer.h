@@ -1,9 +1,9 @@
 #pragma once
 
-#include "OrthographicCamera.h"
-#include "RenderCommand.h"
-#include "Shader.h"
-#include "VertexArray.h"
+#include "Engine/Renderer/OrthographicCamera.h"
+#include "Engine/Renderer/RenderCommand.h"
+#include "Engine/Renderer/Shader.h"
+#include "Engine/Renderer/VertexArray.h"
 
 #include <glm/glm.hpp>
 

@@ -1,6 +1,6 @@
 #include "OpenGLShader.h"
 
-#include "Engine/Log.h"
+#include "Engine/Core/Log.h"
 
 #include <array>
 #include <fstream>

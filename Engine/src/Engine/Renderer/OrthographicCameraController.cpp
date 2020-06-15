@@ -2,10 +2,10 @@
 
 #define NOMINMAX
 
-#include "Engine/Core.h"
-#include "Engine/Input.h"
-#include "Engine/KeyCodes.h"
-#include "Engine/Log.h"
+#include "Engine/Core/Core.h"
+#include "Engine/Core/Input.h"
+#include "Engine/Core/KeyCodes.h"
+#include "Engine/Core/Log.h"
 
 #include <algorithm>
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core.h"
-#include "Events/Event.h"
+#include "Engine/Core/Core.h"
+#include "Engine/Events/Event.h"
 
 namespace Engine
 {
@@ -21,7 +21,7 @@ namespace Engine
 		}
 	};
 
-	class ENGINE_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

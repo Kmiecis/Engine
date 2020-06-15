@@ -2,8 +2,8 @@
 
 #ifdef ENGINE_PLATFORM_WINDOWS
 
-#include "Application.h"
-#include "Log.h"
+#include "Engine/Core/Application.h"
+#include "Engine/Core/Log.h"
 
 extern Engine::Application* Engine::CreateApplication();
 

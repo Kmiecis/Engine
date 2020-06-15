@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Engine/Core.h"
+#include "Engine/Core/Core.h"
 
 #include <string>
 #include <ostream>
@@ -36,7 +36,7 @@ namespace Engine
 
 #define EVENT_CLASS_CATEGORY(category)	virtual int GetCategoryFlags() const override { return category; }
 
-	class ENGINE_API Event
+	class Event
 	{
 	public:
 		bool Handled = false;

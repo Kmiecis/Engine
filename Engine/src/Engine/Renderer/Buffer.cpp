@@ -1,7 +1,7 @@
 #include "Buffer.h"
 
-#include "Renderer.h"
-#include "Engine/Log.h"
+#include "Engine/Renderer/Renderer.h"
+#include "Engine/Core/Log.h"
 #include "Engine/Platform/OpenGL/OpenGLBuffer.h"
 
 namespace Engine

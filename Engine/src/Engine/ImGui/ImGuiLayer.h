@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Engine/Core.h"
+#include "Engine/Core/Core.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Events/KeyEvent.h"
 #include "Engine/Events/MouseEvent.h"
-#include "Engine/Layer.h"
+#include "Engine/Core/Layer.h"
 
 namespace Engine
 {
-	class ENGINE_API ImGuiLayer : public Layer
+	class ImGuiLayer : public Layer
 	{
 	public:
 		ImGuiLayer();

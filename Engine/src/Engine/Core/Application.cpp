@@ -1,8 +1,8 @@
 #include "Application.h"
 
-#include "Log.h"
-#include "Input.h"
-#include "Renderer/Renderer.h"
+#include "Engine/Core/Log.h"
+#include "Engine/Core/Input.h"
+#include "Engine/Renderer/Renderer.h"
 
 #include <GLFW/glfw3.h>
 

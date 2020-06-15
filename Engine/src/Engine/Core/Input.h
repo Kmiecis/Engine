@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Core.h"
+#include "Engine/Core/Core.h"
 
 #include <utility>
 
 namespace Engine
 {
-	class ENGINE_API Input
+	class Input
 	{
 	public:
 		inline static bool IsKeyPressed(int keyCode) { return s_Instance->IsKeyPressedImpl(keyCode); }

@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Core.h"
-#include "Events/Event.h"
+#include "Engine/Core/Core.h"
 #include "Engine/Core/Timestep.h"
+#include "Engine/Events/Event.h"
 
 #include <string>
 
 namespace Engine
 {
-	class ENGINE_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");

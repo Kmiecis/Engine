@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Core.h"
-#include "Layer.h"
+#include "Engine/Core/Core.h"
+#include "Engine/Core/Layer.h"
 
 #include <vector>
 
 namespace Engine
 {
-	class ENGINE_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();
