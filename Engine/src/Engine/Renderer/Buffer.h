@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Engine/Core/Core.h"
 #include "Engine/Core/Log.h"
 
 #include <cstdint>
@@ -137,7 +138,7 @@ namespace Engine
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 
-		static VertexBuffer* Create(float* vertices, uint32_t size);
+		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
 	};
 
 	class IndexBuffer
@@ -150,6 +151,6 @@ namespace Engine
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(uint32_t* indices, uint32_t count);
+		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t count);
 	};
 }

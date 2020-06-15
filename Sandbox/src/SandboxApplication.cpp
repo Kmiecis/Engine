@@ -1,7 +1,9 @@
 #include <Engine.h>
+#include <Engine/Core/EntryPoint.h>
 
 #include "Engine/Platform/OpenGL/OpenGLShader.h"
 #include "Engine/Renderer/ShaderLibrary.h"
+#include "Sandbox2D.h"
 
 #include <imgui/imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -13,7 +15,7 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
-		m_VertexArray.reset(Engine::VertexArray::Create());
+		m_VertexArray = Engine::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.2f, 1.0f,
@@ -22,7 +24,7 @@ public:
 		};
 
 		Engine::Ref<Engine::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Engine::VertexBuffer::Create(vertices, sizeof(vertices));
 		Engine::BufferLayout layout = {
 			{ Engine::ShaderDataType::Float3, "a_Position" },
 			{ Engine::ShaderDataType::Float4, "a_Color" }
@@ -35,10 +37,10 @@ public:
 		};
 
 		Engine::Ref<Engine::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Engine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		indexBuffer = Engine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVertexArray.reset(Engine::VertexArray::Create());
+		m_SquareVertexArray = Engine::VertexArray::Create();
 
 		float squareVertices[(3 + 2) * 4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -48,7 +50,7 @@ public:
 		};
 
 		Engine::Ref<Engine::VertexBuffer> squareVertexBuffer;
-		squareVertexBuffer.reset(Engine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVertexBuffer = Engine::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		squareVertexBuffer->SetLayout({
 			{ Engine::ShaderDataType::Float3, "a_Position" },
 			{ Engine::ShaderDataType::Float2, "a_TexCoord" }
@@ -60,7 +62,7 @@ public:
 		};
 
 		Engine::Ref<Engine::IndexBuffer> squareIndexBuffer;
-		squareIndexBuffer.reset(Engine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		squareIndexBuffer = Engine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
 
 		std::string vertexSource = R"(
@@ -219,7 +221,8 @@ class SandboxApplication : public Engine::Application
 public:
 	SandboxApplication()
 	{
-		PushLayer(new ExampleLayer());
+		// PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~SandboxApplication()

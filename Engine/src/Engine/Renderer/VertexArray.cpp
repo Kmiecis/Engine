@@ -5,7 +5,7 @@
 
 namespace Engine
 {
-	VertexArray* VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -14,7 +14,7 @@ namespace Engine
 				return nullptr;
 
 			case RendererAPI::API::OpenGL:
-				return new OpenGLVertexArray();
+				return std::make_shared<OpenGLVertexArray>();
 		}
 
 		LOG_CORE_ASSERT(false, "RendererAPI::Unknown");
