@@ -1384,6 +1384,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Renderer\ShaderLibrary.h" />
+    <ClInclude Include="src\Engine\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Application.cpp">
@@ -1456,5 +1457,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Renderer\ShaderLibrary.cpp" />
+    <ClCompile Include="src\Engine\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>
