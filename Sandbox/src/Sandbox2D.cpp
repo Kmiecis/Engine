@@ -11,6 +11,7 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	m_CheckerBoardTexture = Engine::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -29,6 +30,7 @@ void Sandbox2D::OnUpdate(Engine::Timestep timestep)
 	Engine::Renderer2D::BeginScene(m_CameraController.GetCamera());
 	Engine::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 	Engine::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+	Engine::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 10.5f, 10.5f }, m_CheckerBoardTexture);
 	Engine::Renderer2D::EndScene();
 }
 
