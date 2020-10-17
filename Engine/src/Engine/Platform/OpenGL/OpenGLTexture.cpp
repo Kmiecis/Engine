@@ -1,6 +1,6 @@
 #include "OpenGLTexture.h"
 
-#include "Engine/Core/Log.h"
+#include "Engine/Debug/Log.h"
 
 #include <glad/glad.h>
 #include <stb_image.h>

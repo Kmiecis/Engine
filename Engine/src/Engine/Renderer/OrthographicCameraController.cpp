@@ -5,7 +5,7 @@
 #include "Engine/Core/Core.h"
 #include "Engine/Core/Input.h"
 #include "Engine/Core/KeyCodes.h"
-#include "Engine/Core/Log.h"
+#include "Engine/Debug/Log.h"
 
 #include <algorithm>
 

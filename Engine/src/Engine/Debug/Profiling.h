@@ -9,7 +9,7 @@
 #include <mutex>
 #include <sstream>
 
-#include "Engine/Core/Log.h"
+#include "Engine/Debug/Log.h"
 
 namespace Engine
 {
@@ -22,16 +22,16 @@ namespace Engine
 		std::thread::id ThreadID;
 	};
 
-	struct InstrumentationSession
+	struct ProfilingSession
 	{
 		std::string Name;
 	};
 
-	class Instrumentor
+	class Profiler
 	{
 	public:
-		Instrumentor(const Instrumentor&) = delete;
-		Instrumentor(Instrumentor&&) = delete;
+		Profiler(const Profiler&) = delete;
+		Profiler(Profiler&&) = delete;
 
 		void BeginSession(const std::string& name, const std::string& filepath = "results.json")
 		{
@@ -44,7 +44,7 @@ namespace Engine
 				// profiling output.
 				if (Log::GetCoreLogger()) // Edge case: BeginSession() might be before Log::Init()
 				{
-					LOG_CORE_ERROR("Instrumentor::BeginSession('{0}') when session '{1}' already open.", name, m_CurrentSession->Name);
+					LOG_CORE_ERROR("Profiler::BeginSession('{0}') when session '{1}' already open.", name, m_CurrentSession->Name);
 				}
 				InternalEndSession();
 			}
@@ -52,14 +52,14 @@ namespace Engine
 
 			if (m_OutputStream.is_open())
 			{
-				m_CurrentSession = new InstrumentationSession({ name });
+				m_CurrentSession = new ProfilingSession({ name });
 				WriteHeader();
 			}
 			else
 			{
 				if (Log::GetCoreLogger()) // Edge case: BeginSession() might be before Log::Init()
 				{
-					LOG_CORE_ERROR("Instrumentor could not open results file '{0}'.", filepath);
+					LOG_CORE_ERROR("Profiler could not open results file '{0}'.", filepath);
 				}
 			}
 		}
@@ -93,18 +93,18 @@ namespace Engine
 			}
 		}
 
-		static Instrumentor& Get()
+		static Profiler& Get()
 		{
-			static Instrumentor instance;
+			static Profiler instance;
 			return instance;
 		}
 	private:
-		Instrumentor()
+		Profiler()
 			: m_CurrentSession(nullptr)
 		{
 		}
 
-		~Instrumentor()
+		~Profiler()
 		{
 			EndSession();
 		}
@@ -136,20 +136,20 @@ namespace Engine
 
 	private:
 		std::mutex m_Mutex;
-		InstrumentationSession* m_CurrentSession;
+		ProfilingSession* m_CurrentSession;
 		std::ofstream m_OutputStream;
 	};
 
-	class InstrumentationTimer
+	class ProfilingTimer
 	{
 	public:
-		InstrumentationTimer(const char* name)
+		ProfilingTimer(const char* name)
 			: m_Name(name), m_Stopped(false)
 		{
 			m_StartTimepoint = std::chrono::steady_clock::now();
 		}
 
-		~InstrumentationTimer()
+		~ProfilingTimer()
 		{
 			if (!m_Stopped)
 			{
@@ -165,7 +165,7 @@ namespace Engine
 			auto highResStart = std::chrono::duration<double, std::micro>(m_StartTimepoint.time_since_epoch());
 			auto elapsedTime = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch() - std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch();
 
-			Instrumentor::Get().WriteProfile({ m_Name, highResStart, elapsedTime, std::this_thread::get_id() });
+			Profiler::Get().WriteProfile({ m_Name, highResStart, elapsedTime, std::this_thread::get_id() });
 		}
 
 	private:
@@ -174,9 +174,8 @@ namespace Engine
 		bool m_Stopped;
 	};
 
-	namespace InstrumentorUtils
+	namespace ProfilerUtils
 	{
-
 		template <size_t N>
 		struct ChangeResult
 		{
@@ -205,39 +204,40 @@ namespace Engine
 	}
 }
 
-#define ENGINE_PROFILE 0
-#if ENGINE_PROFILE
+// The result should be uploaded to 'chrome://tracing'
+#define PROFILING_ENABLED 1
+#if PROFILING_ENABLED
 	// Resolve which function signature macro will be used. Note that this only
 	// is resolved when the (pre)compiler starts, so the syntax highlighting
 	// could mark the wrong one in your editor!
 	#if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) || (defined(__ICC) && (__ICC >= 600)) || defined(__ghs__)
-		#define ENGINE_FUNC_SIG __PRETTY_FUNCTION__
+		#define PROFILE_FUNC_SIG __PRETTY_FUNCTION__
 	#elif defined(__DMC__) && (__DMC__ >= 0x810)
-		#define ENGINE_FUNC_SIG __PRETTY_FUNCTION__
+		#define PROFILE_FUNC_SIG __PRETTY_FUNCTION__
 	#elif (defined(__FUNCSIG__) || (_MSC_VER))
-		#define ENGINE_FUNC_SIG __FUNCSIG__
+		#define PROFILE_FUNC_SIG __FUNCSIG__
 	#elif (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 600)) || (defined(__IBMCPP__) && (__IBMCPP__ >= 500))
-		#define ENGINE_FUNC_SIG __FUNCTION__
+		#define PROFILE_FUNC_SIG __FUNCTION__
 	#elif defined(__BORLANDC__) && (__BORLANDC__ >= 0x550)
-		#define ENGINE_FUNC_SIG __FUNC__
+		#define PROFILE_FUNC_SIG __FUNC__
 	#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901)
-		#define ENGINE_FUNC_SIG __func__
+		#define PROFILE_FUNC_SIG __func__
 	#elif defined(__cplusplus) && (__cplusplus >= 201103)
-		#define ENGINE_FUNC_SIG __func__
+		#define PROFILE_FUNC_SIG __func__
 	#else
-		#define ENGINE_FUNC_SIG "ENGINE_FUNC_SIG unknown!"
+		#define PROFILE_FUNC_SIG "PROFILE_FUNC_SIG unknown!"
 	#endif
 
-	#define ENGINE_PROFILE_BEGIN_SESSION(name, filepath) ::Engine::Instrumentor::Get().BeginSession(name, filepath)
-	#define ENGINE_PROFILE_END_SESSION() ::Engine::Instrumentor::Get().EndSession()
-	#define ENGINE_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Engine::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
-												   ::Engine::InstrumentationTimer timer##line(fixedName##line.Data)
-	#define ENGINE_PROFILE_SCOPE_LINE(name, line) ENGINE_PROFILE_SCOPE_LINE2(name, line)
-	#define ENGINE_PROFILE_SCOPE(name) ENGINE_PROFILE_SCOPE_LINE(name, __LINE__)
-	#define ENGINE_PROFILE_FUNCTION() ENGINE_PROFILE_SCOPE(ENGINE_FUNC_SIG)
+	#define PROFILE_BEGIN_SESSION(name, filepath) ::Engine::Profiler::Get().BeginSession(name, filepath)
+	#define PROFILE_END_SESSION() ::Engine::Profiler::Get().EndSession()
+	#define PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Engine::ProfilerUtils::CleanupOutputString(name, "__cdecl ");\
+												   ::Engine::ProfilingTimer timer##line(fixedName##line.Data)
+	#define PROFILE_SCOPE_LINE(name, line) PROFILE_SCOPE_LINE2(name, line)
+	#define PROFILE_SCOPE(name) PROFILE_SCOPE_LINE(name, __LINE__)
+	#define PROFILE_FUNCTION() PROFILE_SCOPE(PROFILE_FUNC_SIG)
 #else
-	#define ENGINE_PROFILE_BEGIN_SESSION(name, filepath)
-	#define ENGINE_PROFILE_END_SESSION()
-	#define ENGINE_PROFILE_SCOPE(name)
-	#define ENGINE_PROFILE_FUNCTION()
+	#define PROFILE_BEGIN_SESSION(name, filepath)
+	#define PROFILE_END_SESSION()
+	#define PROFILE_SCOPE(name)
+	#define PROFILE_FUNCTION()
 #endif

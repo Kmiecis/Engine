@@ -1,6 +1,6 @@
 #include "WindowsWindow.h"
 
-#include "Engine/Core/Log.h"
+#include "Engine/Debug/Log.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Events/MouseEvent.h"
 #include "Engine/Events/KeyEvent.h"

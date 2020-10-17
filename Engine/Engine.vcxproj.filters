@@ -78,9 +78,6 @@
     <ClInclude Include="src\Engine\Core\LayerStack.h">
       <Filter>src\Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Core\Log.h">
-      <Filter>src\Engine\Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Core\MouseButtonCodes.h">
       <Filter>src\Engine\Core</Filter>
     </ClInclude>
@@ -104,9 +101,6 @@
     </ClInclude>
     <ClInclude Include="src\Engine\ImGui\ImGuiLayer.h">
       <Filter>src\Engine\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Platform\OpenGL\OpenGLBuffer.h">
-      <Filter>src\Engine\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Platform\OpenGL\OpenGLContext.h">
       <Filter>src\Engine\Platform\OpenGL</Filter>
@@ -1390,7 +1384,13 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\Engine\Debug\Instrumentor.h" />
+    <ClInclude Include="src\Engine\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>src\Engine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Debug\Profiling.h" />
+    <ClInclude Include="src\Engine\Debug\Log.h">
+      <Filter>src\Engine\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -1402,17 +1402,11 @@
     <ClCompile Include="src\Engine\Core\LayerStack.cpp">
       <Filter>src\Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Core\Log.cpp">
-      <Filter>src\Engine\Core</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\ImGui\ImGuiBuild.cpp">
       <Filter>src\Engine\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\ImGui\ImGuiLayer.cpp">
       <Filter>src\Engine\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Platform\OpenGL\OpenGLBuffer.cpp">
-      <Filter>src\Engine\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Platform\OpenGL\OpenGLContext.cpp">
       <Filter>src\Engine\Platform\OpenGL</Filter>
@@ -1469,5 +1463,11 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Engine\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\Engine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Debug\Log.cpp">
+      <Filter>src\Engine\Core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
