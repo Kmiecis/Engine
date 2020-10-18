@@ -11,6 +11,7 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	m_WhiteTexture = Engine::Texture2D::Create("assets/textures/1x1.png");
 	m_CheckerBoardTexture = Engine::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
@@ -28,8 +29,8 @@ void Sandbox2D::OnUpdate(Engine::Timestep timestep)
 	Engine::RenderCommand::Clear();
 
 	Engine::Renderer2D::BeginScene(m_CameraController.GetCamera());
-	Engine::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, glm::radians(45.0f), { 0.8f, 0.2f, 0.3f, 1.0f });
-	Engine::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+	Engine::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, glm::radians(45.0f), m_WhiteTexture, 1.0f, { 0.8f, 0.2f, 0.3f, 1.0f });
+	Engine::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, m_WhiteTexture, 1.0f, { 0.2f, 0.3f, 0.8f, 1.0f });
 	Engine::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.5f, 10.5f }, m_CheckerBoardTexture, 10.0f);
 	Engine::Renderer2D::EndScene();
 }
