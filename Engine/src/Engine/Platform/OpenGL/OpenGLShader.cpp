@@ -85,11 +85,6 @@ namespace Engine
 		UploadUniformMat4(name, value);
 	}
 
-	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
-	{
-		UploadUniformIntArray(name, values, count);
-	}
-
 	void OpenGLShader::UploadUniformInt(const std::string& name, int value)
 	{
 		glUniform1i(GetUniformLocation(name), value);
@@ -123,11 +118,6 @@ namespace Engine
 	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
 	{
 		glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix));
-	}
-
-	void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count)
-	{
-		glUniform1iv(GetUniformLocation(name), count, values);
 	}
 	
 	int OpenGLShader::GetUniformLocation(const std::string& name) const
