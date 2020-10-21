@@ -2,7 +2,6 @@
 #include <Engine/Core/EntryPoint.h>
 
 #include "Engine/Platform/OpenGL/OpenGLShader.h"
-#include "Engine/Renderer/ShaderLibrary.h"
 #include "Sandbox2D.h"
 
 #include <imgui/imgui.h>

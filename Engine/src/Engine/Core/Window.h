@@ -26,7 +26,7 @@ namespace Engine
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
 
-		virtual ~Window() {}
+		virtual ~Window() = default;
 
 		virtual void OnUpdate() = 0;
 
@@ -39,6 +39,6 @@ namespace Engine
 
 		virtual void* GetNativeWindow() const = 0;
 
-		static Window* Create(const WindowProperties& properties = WindowProperties());
+		static Scope<Window> Create(const WindowProperties& properties = WindowProperties());
 	};
 }

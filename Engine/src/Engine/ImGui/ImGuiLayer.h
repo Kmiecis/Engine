@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Engine/Core/Core.h"
+#include "Engine/Core/Layer.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Events/KeyEvent.h"
 #include "Engine/Events/MouseEvent.h"
-#include "Engine/Core/Layer.h"
 
 namespace Engine
 {
@@ -12,10 +11,10 @@ namespace Engine
 	{
 	public:
 		ImGuiLayer();
-		~ImGuiLayer();
+		~ImGuiLayer() = default;
 
-		void OnAttach() override;
-		void OnDetach() override;
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
 
 		void Begin();
 		void End();

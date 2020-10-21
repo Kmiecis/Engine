@@ -1,9 +1,9 @@
 #pragma once
 
-#ifdef ENGINE_PLATFORM_WINDOWS
-
 #include "Engine/Core/Application.h"
 #include "Engine/Debug/Log.h"
+
+#ifdef NG_PLATFORM_WINDOWS
 
 extern Engine::Application* Engine::CreateApplication();
 

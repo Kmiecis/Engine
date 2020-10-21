@@ -2,9 +2,6 @@
 
 #include "Engine/Renderer/Shader.h"
 
-#include <string>
-#include <unordered_map>
-
 #include <glm/glm.hpp>
 
 // TODO: REMOVE!
@@ -19,10 +16,10 @@ namespace Engine
 		OpenGLShader(const std::string& name, const std::string& vertexSource, const std::string& fragmentSource);
 		virtual ~OpenGLShader();
 
-		void Bind() const override;
-		void Unbind() const override;
+		virtual const std::string& GetName() const override { return m_Name; }
 
-		const std::string& GetName() const override { return m_Name; }
+		virtual void Bind() const override;
+		virtual void Unbind() const override;
 
 		virtual void SetInt(const std::string& name, int value) override;
 		virtual void SetFloat(const std::string& name, float value) override;
@@ -43,14 +40,14 @@ namespace Engine
 
 	private:
 		int GetUniformLocation(const std::string& name) const;
-		std::string ExtractNameFromFilepath(const std::string& filepath);
+		std::string ExtractNameFromFilepath(const std::string& filepath) const;
 
 		std::string ReadFile(const std::string& filepath) const;
 		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
 		void Compile(const std::unordered_map<GLenum, std::string>& sources);
 
 	private:
-		uint32_t m_RendererID = 0;
+		uint32_t m_RendererID;
 		std::string m_Name;
 	};
 }

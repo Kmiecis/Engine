@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Engine/Core/Input.h"
 #include "Engine/Events/Event.h"
 
 #include <sstream>
@@ -9,24 +10,24 @@ namespace Engine
 	class KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() const { return m_KeyCode; }
+		inline KeyCode GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 	protected:
-		KeyEvent(int keyCode)
-			: m_KeyCode(keyCode)
+		KeyEvent(KeyCode keycode)
+			: m_KeyCode(keycode)
 		{
 		}
 
-		int m_KeyCode;
+		KeyCode m_KeyCode;
 	};
 
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keyCode, int repeatCount)
-			: KeyEvent(keyCode), m_RepeatCount(repeatCount)
+		KeyPressedEvent(KeyCode keycode, int repeatCount)
+			: KeyEvent(keycode), m_RepeatCount(repeatCount)
 		{
 		}
 
@@ -48,8 +49,8 @@ namespace Engine
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keyCode)
-			: KeyEvent(keyCode)
+		KeyReleasedEvent(KeyCode keycode)
+			: KeyEvent(keycode)
 		{
 		}
 
@@ -66,8 +67,8 @@ namespace Engine
 	class KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(int keyCode)
-			: KeyEvent(keyCode)
+		KeyTypedEvent(KeyCode keycode)
+			: KeyEvent(keycode)
 		{
 		}
 

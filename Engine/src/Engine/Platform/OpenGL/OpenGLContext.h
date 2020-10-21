@@ -11,8 +11,8 @@ namespace Engine
 	public:
 		OpenGLContext(GLFWwindow* window);
 
-		void Init() override;
-		void SwapBuffers() override;
+		virtual void Init() override;
+		virtual void SwapBuffers() override;
 
 	private:
 		GLFWwindow* m_Window;

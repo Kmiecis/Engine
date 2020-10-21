@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Engine/Renderer/OrthographicCamera.h"
 #include "Engine/Renderer/RenderCommand.h"
+#include "Engine/Renderer/OrthographicCamera.h"
 #include "Engine/Renderer/Shader.h"
 #include "Engine/Renderer/VertexArray.h"
 
@@ -13,6 +13,8 @@ namespace Engine
 	{
 	public:
 		static void Init();
+		static void Shutdown();
+		
 		static void OnWindowResize(uint32_t width, uint32_t height);
 
 		static void BeginScene(const OrthographicCamera& camera);
@@ -32,6 +34,6 @@ namespace Engine
 			glm::mat4 ViewProjectionMatrix;
 		};
 
-		static SceneData* s_SceneData;
+		static Scope<SceneData> s_SceneData;
 	};
 }

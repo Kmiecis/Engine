@@ -1,8 +1,7 @@
 #include "Buffer.h"
 
-#include "Engine/Renderer/Renderer.h"
-#include "Engine/Debug/Log.h"
 #include "Engine/Platform/OpenGL/OpenGLBuffer.h"
+#include "Engine/Renderer/Renderer.h"
 
 namespace Engine
 {
@@ -10,15 +9,11 @@ namespace Engine
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::API::None:
-				LOG_CORE_ASSERT(false, "RendererAPI::None is not supported.");
-				return nullptr;
-
-			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLVertexBuffer>(size);
+			case RendererAPI::API::None:    NG_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexBuffer>(size);
 		}
 
-		LOG_CORE_ASSERT(false, "RendererAPI::Unknown");
+		NG_CORE_ASSERT(false, "RendererAPI::Unknown");
 		return nullptr;
 	}
 
@@ -26,31 +21,23 @@ namespace Engine
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::API::None:
-				LOG_CORE_ASSERT(false, "RendererAPI::None is not supported.");
-				return nullptr;
-
-			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLVertexBuffer>(vertices, size);
+			case RendererAPI::API::None:    NG_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 
-		LOG_CORE_ASSERT(false, "RendererAPI::Unknown");
+		NG_CORE_ASSERT(false, "RendererAPI::Unknown");
 		return nullptr;
 	}
-	
-	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
+
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::API::None:
-				LOG_CORE_ASSERT(false, "RendererAPI::None is not supported.");
-				return nullptr;
-
-			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLIndexBuffer>(indices, count);
+			case RendererAPI::API::None:    NG_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLIndexBuffer>(indices, size);
 		}
 
-		LOG_CORE_ASSERT(false, "RendererAPI::Unknown");
+		NG_CORE_ASSERT(false, "RendererAPI::Unknown");
 		return nullptr;
 	}
 }

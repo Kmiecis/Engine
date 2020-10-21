@@ -1,25 +1,21 @@
 #include "WindowsWindow.h"
 
-#include "Engine/Debug/Log.h"
+#include "Engine/Core/Input.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Events/MouseEvent.h"
 #include "Engine/Events/KeyEvent.h"
 #include "Engine/Platform/OpenGL/OpenGLContext.h"
+#include "Engine/Renderer/Renderer.h"
 
 #include <glad/glad.h>
 
 namespace Engine
 {
-	static bool s_GLFWInitialized = false;
+	static uint8_t s_GLFWWindowCount = 0;
 
-	static void GLFWErrorCallback(int error, const char* desc)
+	static void GLFWErrorCallback(int error, const char* description)
 	{
-		LOG_CORE_ERROR("GLFW Error ({0}): {1}", error, desc);
-	}
-
-	Window* Window::Create(const WindowProperties& properties)
-	{
-		return new WindowsWindow(properties);
+		NG_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProperties& properties)
@@ -38,28 +34,28 @@ namespace Engine
 		m_Data.Width = properties.Width;
 		m_Data.Height = properties.Height;
 
-		LOG_CORE_INFO("Creating window {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
+		NG_CORE_INFO("Creating window {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
 
-		if (!s_GLFWInitialized)
+		if (s_GLFWWindowCount == 0)
 		{
-			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
-			LOG_CORE_ASSERT(success, "Could not initialize GLFW");
-
+			NG_CORE_ASSERT(success, "Could not intialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
-
-			s_GLFWInitialized = true;
 		}
-
-		m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, properties.Title.c_str(), nullptr, nullptr);
-		m_Context = new OpenGLContext(m_Window);
-		m_Context->Init();
 		
-		glfwSetWindowUserPointer(m_Window, &m_Data);
+#if defined(NG_DEBUG)
+		if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+#endif
+		m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		++s_GLFWWindowCount;
 
+		m_Context = GraphicsContext::Create(m_Window);
+		m_Context->Init();
+
+		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
-		// Set GLFW callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -73,12 +69,11 @@ namespace Engine
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
 			WindowCloseEvent event;
 			data.EventCallback(event);
 		});
 
-		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scannode, int action, int mods)
+		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -86,32 +81,30 @@ namespace Engine
 			{
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent event(key, 0);
+					KeyPressedEvent event(static_cast<KeyCode>(key), 0);
 					data.EventCallback(event);
 					break;
 				}
-
-				case GLFW_REPEAT:
-				{
-					KeyPressedEvent event(key, 1);
-					data.EventCallback(event);
-					break;
-				}
-
 				case GLFW_RELEASE:
 				{
-					KeyReleasedEvent event(key);
+					KeyReleasedEvent event(static_cast<KeyCode>(key));
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_REPEAT:
+				{
+					KeyPressedEvent event(static_cast<KeyCode>(key), 1);
 					data.EventCallback(event);
 					break;
 				}
 			}
 		});
 
-		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keyCode)
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-			KeyTypedEvent event(keyCode);
+			KeyTypedEvent event(static_cast<KeyCode>(keycode));
 			data.EventCallback(event);
 		});
 
@@ -123,25 +116,24 @@ namespace Engine
 			{
 				case GLFW_PRESS:
 				{
-					MouseButtonPressedEvent event(button);
+					MouseButtonPressedEvent event(static_cast<MouseCode>(button));
 					data.EventCallback(event);
 					break;
 				}
-
 				case GLFW_RELEASE:
 				{
-					MouseButtonReleasedEvent event(button);
+					MouseButtonReleasedEvent event(static_cast<MouseCode>(button));
 					data.EventCallback(event);
 					break;
 				}
 			}
 		});
 
-		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xoffset, double yoffset)
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-			MouseScrolledEvent event((float)xoffset, (float)yoffset);
+			MouseScrolledEvent event((float)xOffset, (float)yOffset);
 			data.EventCallback(event);
 		});
 
@@ -157,6 +149,12 @@ namespace Engine
 	void WindowsWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
+		--s_GLFWWindowCount;
+
+		if (s_GLFWWindowCount == 0)
+		{
+			glfwTerminate();
+		}
 	}
 
 	void WindowsWindow::OnUpdate()
@@ -168,13 +166,9 @@ namespace Engine
 	void WindowsWindow::SetVSync(bool enabled)
 	{
 		if (enabled)
-		{
 			glfwSwapInterval(1);
-		}
 		else
-		{
 			glfwSwapInterval(0);
-		}
 
 		m_Data.VSync = enabled;
 	}

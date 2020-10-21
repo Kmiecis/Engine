@@ -44,7 +44,7 @@ namespace Engine
 				// profiling output.
 				if (Log::GetCoreLogger()) // Edge case: BeginSession() might be before Log::Init()
 				{
-					LOG_CORE_ERROR("Profiler::BeginSession('{0}') when session '{1}' already open.", name, m_CurrentSession->Name);
+					NG_CORE_ERROR("Profiler::BeginSession('{0}') when session '{1}' already open.", name, m_CurrentSession->Name);
 				}
 				InternalEndSession();
 			}
@@ -59,7 +59,7 @@ namespace Engine
 			{
 				if (Log::GetCoreLogger()) // Edge case: BeginSession() might be before Log::Init()
 				{
-					LOG_CORE_ERROR("Profiler could not open results file '{0}'.", filepath);
+					NG_CORE_ERROR("Profiler could not open results file '{0}'.", filepath);
 				}
 			}
 		}
@@ -205,7 +205,7 @@ namespace Engine
 }
 
 // The result should be uploaded to 'chrome://tracing'
-#define PROFILING_ENABLED 1
+#define PROFILING_ENABLED 0
 #if PROFILING_ENABLED
 	// Resolve which function signature macro will be used. Note that this only
 	// is resolved when the (pre)compiler starts, so the syntax highlighting

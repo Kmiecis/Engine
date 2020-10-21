@@ -25,13 +25,13 @@ namespace Engine
 
 		inline virtual void* GetNativeWindow() const { return m_Window; }
 
-	protected:
+	private:
 		virtual void Init(const WindowProperties& properties);
 		virtual void Shutdown();
 
 	private:
 		GLFWwindow* m_Window;
-		GraphicsContext* m_Context;
+		Scope<GraphicsContext> m_Context;
 
 		struct WindowData
 		{
@@ -39,6 +39,7 @@ namespace Engine
 			unsigned int Width;
 			unsigned int Height;
 			bool VSync;
+
 			EventCallbackFn EventCallback;
 		};
 
