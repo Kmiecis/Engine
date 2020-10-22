@@ -28,11 +28,14 @@ void Sandbox2D::OnUpdate(Engine::Timestep timestep)
 	Engine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	Engine::RenderCommand::Clear();
 
+	static float angle = 0.0f;
+	angle += 45.0f * timestep;
+
 	Engine::Renderer2D::BeginScene(m_CameraController.GetCamera());
-	//Engine::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, glm::radians(45.0f), m_WhiteTexture, 1.0f, { 0.8f, 0.2f, 0.3f, 1.0f });
 	Engine::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, m_WhiteTexture, 1.0f, { 0.8f, 0.2f, 0.3f, 1.0f });
 	Engine::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, m_WhiteTexture, 1.0f, { 0.2f, 0.3f, 0.8f, 1.0f });
-	Engine::Renderer2D::DrawQuad({ -5.0f, -5.0f, -0.1f }, { 10.5f, 10.5f }, m_CheckerBoardTexture, 10.0f);
+	Engine::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_CheckerBoardTexture, 10.0f);
+	Engine::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, angle, m_CheckerBoardTexture, 20.0f);
 	Engine::Renderer2D::EndScene();
 }
 
