@@ -7,6 +7,15 @@ namespace Engine
 	class OrthographicCamera
 	{
 	public:
+		struct Bounds
+		{
+			float Left, Right, Bottom, Top;
+
+			float GetWidth() const { return Right - Left; }
+			float GetHeight() const { return Top - Bottom; }
+		};
+
+	public:
 		OrthographicCamera();
 		OrthographicCamera(float left, float right, float bottom, float top);
 
@@ -17,6 +26,8 @@ namespace Engine
 
 		float GetRotation() const { return m_Rotation; }
 		void SetRotation(float rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
+
+		const Bounds& GetBounds() const { return m_Bounds; }
 
 		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
@@ -32,5 +43,7 @@ namespace Engine
 
 		glm::vec3 m_Position = glm::vec3(0.0f);
 		float m_Rotation = 0.0f;
+
+		Bounds m_Bounds;
 	};
 }

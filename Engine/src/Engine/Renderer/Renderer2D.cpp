@@ -100,6 +100,7 @@ namespace Engine
 
 	void Renderer2D::Shutdown()
 	{
+		delete[] s_Data.QuadVertexBufferBase;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
@@ -115,7 +116,7 @@ namespace Engine
 
 	void Renderer2D::EndScene()
 	{
-		uint32_t dataSize = (uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase;
+		uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase);
 		s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
 
 		Flush();
@@ -123,6 +124,9 @@ namespace Engine
 
 	void Renderer2D::Flush()
 	{
+		if (s_Data.QuadIndexCount == 0)
+			return;
+
 		for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
 			s_Data.TextureSlots[i]->Bind(i);
 		
@@ -194,7 +198,7 @@ namespace Engine
 		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, angle, texture, tiling, color);
 	}
 
-	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float angle, const Ref<Texture2D>& texture, float tiling, const glm::vec4& color)
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float radians, const Ref<Texture2D>& texture, float tiling, const glm::vec4& color)
 	{
 		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
 		{
@@ -219,7 +223,7 @@ namespace Engine
 		}
 
 		glm::mat4 translate = glm::translate(glm::mat4(1.0f), position);
-		glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));
+		glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), radians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(size.x, size.y, 1.0f));
 		glm::mat4 transform = translate * rotate * scale;
 
