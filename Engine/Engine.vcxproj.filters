@@ -93,6 +93,9 @@
     <ClInclude Include="src\Engine\Debug\Log.h">
       <Filter>src\Engine\Debug</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Debug\Profiling.h">
+      <Filter>src\Engine\Debug</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine\Events\ApplicationEvent.h">
       <Filter>src\Engine\Events</Filter>
     </ClInclude>
@@ -1392,9 +1395,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Debug\Profiling.h">
-      <Filter>src\Engine\Debug</Filter>
-    </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -1481,5 +1482,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

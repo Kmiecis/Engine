@@ -14,6 +14,10 @@ void Sandbox2D::OnAttach()
 {
 	m_WhiteTexture = Engine::Texture2D::Create("assets/textures/1x1.png");
 	m_CheckerBoardTexture = Engine::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_SpriteSheet = Engine::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
+	m_TextureStairs = Engine::SubTexture2D::Create(m_SpriteSheet, { 7.0f, 6.0f }, { 128.0f, 128.0f });
+	m_TextureBarrel = Engine::SubTexture2D::Create(m_SpriteSheet, { 8.0f, 2.0f }, { 128.0f, 128.0f });
+	m_TextureTree = Engine::SubTexture2D::Create(m_SpriteSheet, { 2.0f, 1.0f }, { 128.0f, 128.0f }, { 1.0f, 2.0f });
 
 	m_ParticleProperties.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	m_ParticleProperties.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -40,6 +44,7 @@ void Sandbox2D::OnUpdate(Engine::Timestep timestep)
 	Engine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	Engine::RenderCommand::Clear();
 
+#if 0
 	static float angle = 0.0f;
 	angle += glm::radians(45.0f) * timestep;
 
@@ -60,6 +65,7 @@ void Sandbox2D::OnUpdate(Engine::Timestep timestep)
 		}
 	}
 	Engine::Renderer2D::EndScene();
+#endif
 
 	if (Engine::Input::IsMouseButtonPressed(NG_MOUSE_BUTTON_LEFT))
 	{
@@ -76,6 +82,13 @@ void Sandbox2D::OnUpdate(Engine::Timestep timestep)
 		for (int i = 0; i < 5; i++)
 			m_ParticleSystem.Emit(m_ParticleProperties);
 	}
+
+	Engine::Renderer2D::BeginScene(m_CameraController.GetCamera());
+	Engine::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_TextureStairs);
+	Engine::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_TextureBarrel);
+	Engine::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.5f }, { 1.0f, 2.0f }, m_TextureTree);
+	Engine::Renderer2D::EndScene();
+
 	m_ParticleSystem.OnUpdate(timestep);
 	m_ParticleSystem.OnRender(m_CameraController.GetCamera());
 }

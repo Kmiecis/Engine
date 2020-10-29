@@ -25,6 +25,10 @@ private:
 
 	Engine::Ref<Engine::Texture2D> m_WhiteTexture;
 	Engine::Ref<Engine::Texture2D> m_CheckerBoardTexture;
+	Engine::Ref<Engine::Texture2D> m_SpriteSheet;
+	Engine::Ref<Engine::SubTexture2D> m_TextureStairs;
+	Engine::Ref<Engine::SubTexture2D> m_TextureBarrel;
+	Engine::Ref<Engine::SubTexture2D> m_TextureTree;
 
 	glm::vec4 m_SquareColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
 

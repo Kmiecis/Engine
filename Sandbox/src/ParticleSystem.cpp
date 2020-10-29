@@ -8,7 +8,7 @@
 
 ParticleSystem::ParticleSystem(uint32_t maxParticles) :
 	m_PoolIndex(maxParticles - 1),
-	m_WhiteTexture(Engine::Texture2D::Create("assets/textures/1x1.png"))
+	m_WhiteTexture(Engine::SubTexture2D::Create(Engine::Texture2D::Create("assets/textures/1x1.png")))
 {
 	m_ParticlePool.resize(maxParticles);
 }

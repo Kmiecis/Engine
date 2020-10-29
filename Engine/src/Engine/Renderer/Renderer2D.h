@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Engine/Renderer/OrthographicCamera.h"
-#include "Engine/Renderer/Texture.h"
+#include "Engine/Renderer/SubTexture2D.h"
 
 namespace Engine
 {
@@ -15,11 +15,11 @@ namespace Engine
 		static void EndScene();
 		static void Flush();
 
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tiling = 1.0f, const glm::vec4& color = glm::vec4(1.0f));
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tiling = 1.0f, const glm::vec4& color = glm::vec4(1.0f));
+		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, float tiling = 1.0f, const glm::vec4& color = glm::vec4(1.0f));
+		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, float tiling = 1.0f, const glm::vec4& color = glm::vec4(1.0f));
 
-		static void DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tiling = 1.0f, const glm::vec4& color = glm::vec4(1.0f));
-		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tiling = 1.0f, const glm::vec4& color = glm::vec4(1.0f));
+		static void DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, float tiling = 1.0f, const glm::vec4& color = glm::vec4(1.0f));
+		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, float tiling = 1.0f, const glm::vec4& color = glm::vec4(1.0f));
 	
 		struct Statistics
 		{

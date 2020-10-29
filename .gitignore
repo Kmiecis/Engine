@@ -6,3 +6,4 @@ bin-int/
 # Files
 *.user
 Sandbox/Engine.log
+Sandbox/imgui.ini

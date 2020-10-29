@@ -36,7 +36,7 @@ private:
 		bool Active = false;
 	};
 
-	Engine::Ref<Engine::Texture2D> m_WhiteTexture;
+	Engine::Ref<Engine::SubTexture2D> m_WhiteTexture;
 	std::vector<Particle> m_ParticlePool;
 	uint32_t m_PoolIndex;
 };
