@@ -20,12 +20,10 @@ public:
 private:
 	Engine::OrthographicCameraController m_CameraController;
 
-	Engine::Ref<Engine::Shader> m_FlatColorShader;
-	Engine::Ref<Engine::VertexArray> m_SquareVertexArray;
-
-	Engine::Ref<Engine::Texture2D> m_WhiteTexture;
 	Engine::Ref<Engine::Texture2D> m_CheckerBoardTexture;
+	Engine::Ref<Engine::Texture2D> m_WhiteTexture;
 	Engine::Ref<Engine::SubTexture2D> m_WhiteSubTexture;
+	Engine::Ref<Engine::Framebuffer> m_Framebuffer;
 
 	glm::vec4 m_SquareColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
 };
