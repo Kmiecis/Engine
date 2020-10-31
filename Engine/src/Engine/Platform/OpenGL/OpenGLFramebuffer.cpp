@@ -7,15 +7,15 @@ namespace Engine
 	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferProperties& properties) :
 		m_Properties(properties)
 	{
-		Invalidate();
+		Create();
 	}
 	
 	OpenGLFramebuffer::~OpenGLFramebuffer()
 	{
-		glDeleteFramebuffers(1, &m_RendererID);
+		Delete();
 	}
 	
-	void OpenGLFramebuffer::Invalidate()
+	void OpenGLFramebuffer::Create()
 	{
 		glCreateFramebuffers(1, &m_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
@@ -36,14 +36,31 @@ namespace Engine
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
+
+	void OpenGLFramebuffer::Delete()
+	{
+		glDeleteFramebuffers(1, &m_RendererID);
+		glDeleteTextures(1, &m_ColorAttachment);
+		glDeleteTextures(1, &m_DepthAttachment);
+	}
 	
 	void OpenGLFramebuffer::Bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
+		glViewport(0, 0, m_Properties.Width, m_Properties.Height);
 	}
 	
 	void OpenGLFramebuffer::Unbind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+	
+	void OpenGLFramebuffer::Resize(uint32_t width, uint32_t height)
+	{
+		m_Properties.Width = width;
+		m_Properties.Height = height;
+
+		Delete();
+		Create();
 	}
 }

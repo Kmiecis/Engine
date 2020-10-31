@@ -63,6 +63,12 @@ namespace Engine
 		dispatcher.Dispatch<WindowResizeEvent>(NG_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
 	}
 
+	void OrthographicCameraController::Resize(float width, float height)
+	{
+		m_AspectRatio = width / height;
+		CalculateView();
+	}
+
 	void OrthographicCameraController::SetZoomLevel(float level)
 	{
 		m_ZoomLevel = level;
@@ -76,16 +82,13 @@ namespace Engine
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& event)
 	{
-		m_ZoomLevel -= event.GetYOffset() * m_CameraZoomSpeed;
-		m_ZoomLevel = std::max(m_ZoomLevel, m_CameraZoomSpeed);
-		CalculateView();
+		SetZoomLevel(std::max(m_ZoomLevel - event.GetYOffset() * m_CameraZoomSpeed, m_CameraZoomSpeed));
 		return false;
 	}
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& event)
 	{
-		m_AspectRatio = (float)event.GetWidth() / (float)event.GetHeight();
-		CalculateView();
+		Resize((float)event.GetWidth(), (float)event.GetHeight());
 		return false;
 	}
 }

@@ -20,6 +20,7 @@ namespace Engine
 		OrthographicCamera& GetCamera() { return m_Camera; }
 		const OrthographicCamera& GetCamera() const { return m_Camera; }
 
+		void Resize(float width, float height);
 		float GetZoomLevel() const { return m_ZoomLevel; }
 		void SetZoomLevel(float level);
 

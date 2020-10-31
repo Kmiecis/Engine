@@ -15,7 +15,7 @@ namespace Engine
 	class Application
 	{
 	public:
-		Application();
+		Application(const char* name = "Engine");
 		virtual ~Application();
 
 		void OnEvent(Event& e);
