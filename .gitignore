@@ -7,3 +7,5 @@ bin-int/
 *.user
 Sandbox/Engine.log
 Sandbox/imgui.ini
+Engine-Editor/Engine.log
+Engine-Editor/imgui.ini
