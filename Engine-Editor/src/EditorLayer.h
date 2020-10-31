@@ -25,6 +25,8 @@ namespace Engine
 		Ref<SubTexture2D> m_WhiteSubTexture;
 		Ref<Framebuffer> m_Framebuffer;
 
+		bool m_IsViewportFocused = false;
+		bool m_IsViewportHovered = false;
 		glm::vec2 m_ViewportSize = glm::vec2(0.0f, 0.0f);
 	};
 }

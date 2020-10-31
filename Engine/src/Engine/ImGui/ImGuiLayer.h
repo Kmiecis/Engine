@@ -20,7 +20,10 @@ namespace Engine
 		void Begin();
 		void End();
 
+		void SetIsBlockingEvents(bool isBlockingEvents) { m_IsBlockingEvents = isBlockingEvents; }
+
 	private:
+		bool m_IsBlockingEvents = true;
 		float m_Time = 0.0f;
 	};
 }
