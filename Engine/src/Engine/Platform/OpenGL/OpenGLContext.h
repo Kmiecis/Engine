@@ -6,15 +6,15 @@ struct GLFWwindow;
 
 namespace Engine
 {
-	class OpenGLContext : public GraphicsContext
-	{
-	public:
-		OpenGLContext(GLFWwindow* window);
+    class OpenGLContext : public GraphicsContext
+    {
+    public:
+        OpenGLContext(GLFWwindow* window);
 
-		virtual void Init() override;
-		virtual void SwapBuffers() override;
+        virtual void Init() override;
+        virtual void SwapBuffers() override;
 
-	private:
-		GLFWwindow* m_Window;
-	};
+    private:
+        GLFWwindow* m_Window;
+    };
 }

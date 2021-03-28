@@ -5,15 +5,15 @@
 
 namespace Engine
 {
-	Ref<VertexArray> VertexArray::Create()
-	{
-		switch (Renderer::GetAPI())
-		{
-			case RendererAPI::API::None:    NG_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
-			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexArray>();
-		}
+    Ref<VertexArray> VertexArray::Create()
+    {
+        switch (Renderer::GetAPI())
+        {
+            case RendererAPI::API::None:    NG_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
+            case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexArray>();
+        }
 
-		NG_CORE_ASSERT(false, "RendererAPI::Unknown");
-		return nullptr;
-	}
+        NG_CORE_ASSERT(false, "RendererAPI::Unknown");
+        return nullptr;
+    }
 }

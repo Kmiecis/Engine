@@ -5,15 +5,15 @@
 
 namespace Engine
 {
-	Ref<Framebuffer> Framebuffer::Create(const FramebufferProperties& properties)
-	{
-		switch (Renderer::GetAPI())
-		{
-			case RendererAPI::API::None:    NG_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
-			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLFramebuffer>(properties);
-		}
+    Ref<Framebuffer> Framebuffer::Create(const FramebufferProperties& properties)
+    {
+        switch (Renderer::GetAPI())
+        {
+            case RendererAPI::API::None:    NG_CORE_ASSERT(false, "RendererAPI::None is not supported"); return nullptr;
+            case RendererAPI::API::OpenGL:  return CreateRef<OpenGLFramebuffer>(properties);
+        }
 
-		NG_CORE_ASSERT(false, "RendererAPI::Unknown");
-		return nullptr;
-	}
+        NG_CORE_ASSERT(false, "RendererAPI::Unknown");
+        return nullptr;
+    }
 }

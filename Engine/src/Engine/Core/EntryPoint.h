@@ -9,15 +9,15 @@ extern Engine::Application* Engine::CreateApplication();
 
 int main(int argc, char** argv)
 {
-	Engine::Log::Init();
+    Engine::Log::Init();
 
-	auto app = Engine::CreateApplication();
-	app->Run();
-	delete app;
+    auto app = Engine::CreateApplication();
+    app->Run();
+    delete app;
 
-	return 0;
+    return 0;
 }
 
 #else
-	#error Define supported platform
+    #error Define supported platform
 #endif

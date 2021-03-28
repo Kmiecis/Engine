@@ -6,13 +6,13 @@
 
 namespace Engine
 {
-	Scope<Window> Window::Create(const WindowProperties& properties)
-	{
+    Scope<Window> Window::Create(const WindowProperties& properties)
+    {
 #ifdef NG_PLATFORM_WINDOWS
-		return CreateScope<WindowsWindow>(properties);
+        return CreateScope<WindowsWindow>(properties);
 #else
-		NG_CORE_ASSERT(false, "Unknown platform!");
-		return nullptr;
+        NG_CORE_ASSERT(false, "Unknown platform!");
+        return nullptr;
 #endif
-	}
+    }
 }

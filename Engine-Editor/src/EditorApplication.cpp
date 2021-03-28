@@ -4,21 +4,21 @@
 
 namespace Engine
 {
-	class EditorApplication : public Application
-	{
-	public:
-		EditorApplication() : Application("Engine Editor")
-		{
-			PushLayer(new EditorLayer());
-		}
+    class EditorApplication : public Application
+    {
+    public:
+        EditorApplication() : Application("Engine Editor")
+        {
+            PushLayer(new EditorLayer());
+        }
 
-		~EditorApplication()
-		{
-		}
-	};
+        ~EditorApplication()
+        {
+        }
+    };
 
-	Application* CreateApplication()
-	{
-		return new EditorApplication();
-	}
+    Application* CreateApplication()
+    {
+        return new EditorApplication();
+    }
 }

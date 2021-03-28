@@ -7,42 +7,42 @@
 
 namespace Engine
 {
-	class WindowsWindow : public Window
-	{
-	public:
-		WindowsWindow(const WindowProperties& properties);
-		virtual ~WindowsWindow();
+    class WindowsWindow : public Window
+    {
+    public:
+        WindowsWindow(const WindowProperties& properties);
+        virtual ~WindowsWindow();
 
-		void OnUpdate() override;
+        void OnUpdate() override;
 
-		inline uint32_t GetWidth() const override { return m_Data.Width; }
-		inline uint32_t GetHeight() const override { return m_Data.Height; }
+        inline uint32_t GetWidth() const override { return m_Data.Width; }
+        inline uint32_t GetHeight() const override { return m_Data.Height; }
 
-		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
+        inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 
-		void SetVSync(bool enabled) override;
-		bool IsVSync() const override;
+        void SetVSync(bool enabled) override;
+        bool IsVSync() const override;
 
-		inline virtual void* GetNativeWindow() const { return m_Window; }
+        inline virtual void* GetNativeWindow() const { return m_Window; }
 
-	private:
-		virtual void Init(const WindowProperties& properties);
-		virtual void Shutdown();
+    private:
+        virtual void Init(const WindowProperties& properties);
+        virtual void Shutdown();
 
-	private:
-		GLFWwindow* m_Window;
-		Scope<GraphicsContext> m_Context;
+    private:
+        GLFWwindow* m_Window;
+        Scope<GraphicsContext> m_Context;
 
-		struct WindowData
-		{
-			std::string Title;
-			uint32_t Width;
-			uint32_t Height;
-			bool VSync;
+        struct WindowData
+        {
+            std::string Title;
+            uint32_t Width;
+            uint32_t Height;
+            bool VSync;
 
-			EventCallbackFn EventCallback;
-		};
+            EventCallbackFn EventCallback;
+        };
 
-		WindowData m_Data;
-	};
+        WindowData m_Data;
+    };
 }

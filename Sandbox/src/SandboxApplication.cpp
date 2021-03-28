@@ -5,17 +5,17 @@
 class SandboxApplication : public Engine::Application
 {
 public:
-	SandboxApplication()
-	{
-		PushLayer(new Sandbox2D());
-	}
+    SandboxApplication()
+    {
+        PushLayer(new Sandbox2D());
+    }
 
-	~SandboxApplication()
-	{
-	}
+    ~SandboxApplication()
+    {
+    }
 };
 
 Engine::Application* Engine::CreateApplication()
 {
-	return new SandboxApplication();
+    return new SandboxApplication();
 }
