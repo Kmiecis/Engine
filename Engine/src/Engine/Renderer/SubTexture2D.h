@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Engine/Core/Core.h"
+#include "Engine/Core/Base.h"
 #include "Engine/Renderer/Texture.h"
 
 #include <glm/glm.hpp>
