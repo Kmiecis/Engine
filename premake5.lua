@@ -1,6 +1,6 @@
 workspace "Engine"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "Engine-Editor"
 
 	configurations
 	{
@@ -18,6 +18,7 @@ IncludeDir["glad"] = "Engine/vendor/glad/include"
 IncludeDir["imgui"] = "Engine/vendor/imgui"
 IncludeDir["glm"] = "Engine/vendor/glm"
 IncludeDir["stb_image"] = "Engine/vendor/stb_image"
+IncludeDir["entt"] = "Engine/vendor/entt/include"
 
 -- Includes .lua files at this directory
 group "Dependencies"
@@ -43,9 +44,9 @@ project "Engine"
 		"%{prj.name}/vendor/stb_image/**.h",
 		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{prj.name}/vendor/glm/glm/**.inl",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
-
+	
 	includedirs
 	{
 		"%{prj.name}/src",
@@ -54,7 +55,8 @@ project "Engine"
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.imgui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 	
 	links
@@ -111,7 +113,8 @@ project "Engine-Editor"
 		"Engine/vendor/spdlog/include",
 		"Engine/src",
 		"Engine/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -163,7 +166,8 @@ project "Sandbox"
 		"Engine/vendor/spdlog/include",
 		"Engine/src",
 		"Engine/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links

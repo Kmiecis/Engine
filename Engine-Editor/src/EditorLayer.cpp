@@ -21,6 +21,11 @@ namespace Engine
         framebufferProperties.Width = 1280;
         framebufferProperties.Height = 720;
         m_Framebuffer = Framebuffer::Create(framebufferProperties);
+
+        m_ActiveScene = CreateRef<Scene>();
+        m_SquareEntity = m_ActiveScene->CreateEntity();
+        m_ActiveScene->GetRegistry().emplace<TransformComponent>(m_SquareEntity);
+        m_ActiveScene->GetRegistry().emplace<SpriteRendererComponent>(m_SquareEntity, glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
     }
 
     void EditorLayer::OnDetach()
@@ -31,21 +36,21 @@ namespace Engine
     {
         // Update
         if (m_IsViewportFocused)
+        {
             m_CameraController.OnUpdate(timestep);
+        }
 
         Renderer2D::ResetStats();
 
-        m_Framebuffer->Bind();
         // Render
+        m_Framebuffer->Bind();
         RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
         RenderCommand::Clear();
 
+        // Update scene
         Renderer2D::BeginScene(m_CameraController.GetCamera());
-        Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_WhiteSubTexture, 1.0f, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-        Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_WhiteSubTexture, 1.0f, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-        Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_WhiteSubTexture, 1.0f, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+        m_ActiveScene->OnUpdate(timestep);
         Renderer2D::EndScene();
-
         m_Framebuffer->Unbind();
     }
 
@@ -121,6 +126,9 @@ namespace Engine
                 ImGui::Text("Quads: %d", stats.QuadCount);
                 ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
                 ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+
+                auto& squareColor = m_ActiveScene->GetRegistry().get<SpriteRendererComponent>(m_SquareEntity).Color;
+                ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 
                 ImGui::End();
             }

@@ -20,6 +20,9 @@ namespace Engine
     private:
         OrthographicCameraController m_CameraController;
 
+        Ref<Scene> m_ActiveScene;
+        entt::entity m_SquareEntity;
+
         Ref<Texture2D> m_CheckerBoardTexture;
         Ref<Texture2D> m_WhiteTexture;
         Ref<SubTexture2D> m_WhiteSubTexture;
@@ -28,5 +31,7 @@ namespace Engine
         bool m_IsViewportFocused = false;
         bool m_IsViewportHovered = false;
         glm::vec2 m_ViewportSize = glm::vec2(0.0f, 0.0f);
+
+        glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
     };
 }
