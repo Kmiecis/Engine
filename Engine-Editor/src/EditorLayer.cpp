@@ -23,9 +23,8 @@ namespace Engine
         m_Framebuffer = Framebuffer::Create(framebufferProperties);
 
         m_ActiveScene = CreateRef<Scene>();
-        m_SquareEntity = m_ActiveScene->CreateEntity();
-        m_ActiveScene->GetRegistry().emplace<TransformComponent>(m_SquareEntity);
-        m_ActiveScene->GetRegistry().emplace<SpriteRendererComponent>(m_SquareEntity, glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
+        m_SquareEntity = m_ActiveScene->CreateEntity("Square");
+        m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
     }
 
     void EditorLayer::OnDetach()
@@ -127,7 +126,7 @@ namespace Engine
                 ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
                 ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-                auto& squareColor = m_ActiveScene->GetRegistry().get<SpriteRendererComponent>(m_SquareEntity).Color;
+                auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
                 ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 
                 ImGui::End();

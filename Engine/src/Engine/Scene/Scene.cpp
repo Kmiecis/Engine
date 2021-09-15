@@ -2,6 +2,7 @@
 
 #include "Engine/Renderer/Renderer2D.h"
 #include "Engine/Scene/Components.h"
+#include "Engine/Scene/Entity.h"
 
 namespace Engine
 {
@@ -18,9 +19,12 @@ namespace Engine
 		return m_Registry;
 	}
 
-	entt::entity Scene::CreateEntity()
+	Entity Scene::CreateEntity(const std::string& name)
 	{
-		return m_Registry.create();
+		Entity entity = Entity(m_Registry.create(), this);
+		entity.AddComponent<TransformComponent>(glm::mat4(1.0f));
+		entity.AddComponent<TagComponent>(name);
+		return entity;
 	}
 
 	void Scene::OnUpdate(Timestep timestep)

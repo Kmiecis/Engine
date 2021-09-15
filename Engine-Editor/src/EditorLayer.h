@@ -21,7 +21,7 @@ namespace Engine
         OrthographicCameraController m_CameraController;
 
         Ref<Scene> m_ActiveScene;
-        entt::entity m_SquareEntity;
+        Entity m_SquareEntity;
 
         Ref<Texture2D> m_CheckerBoardTexture;
         Ref<Texture2D> m_WhiteTexture;
