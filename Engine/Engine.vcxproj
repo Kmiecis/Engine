@@ -164,6 +164,7 @@
     <ClInclude Include="src\Engine\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Engine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Engine\Renderer\Buffer.h" />
+    <ClInclude Include="src\Engine\Renderer\Camera.h" />
     <ClInclude Include="src\Engine\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Engine\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Engine\Renderer\OrthographicCamera.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="src\Engine\Renderer\Texture.h" />
     <ClInclude Include="src\Engine\Renderer\VertexArray.h" />
     <ClInclude Include="src\Engine\Scene\Components.h" />
+    <ClInclude Include="src\Engine\Scene\Components\CameraComponent.h" />
     <ClInclude Include="src\Engine\Scene\Components\SpriteRendererComponent.h" />
     <ClInclude Include="src\Engine\Scene\Components\TagComponent.h" />
     <ClInclude Include="src\Engine\Scene\Components\TransformComponent.h" />

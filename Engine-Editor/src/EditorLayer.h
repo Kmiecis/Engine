@@ -22,6 +22,7 @@ namespace Engine
 
         Ref<Scene> m_ActiveScene;
         Entity m_SquareEntity;
+        Entity m_CameraEntity;
 
         Ref<Texture2D> m_CheckerBoardTexture;
         Ref<Texture2D> m_WhiteTexture;

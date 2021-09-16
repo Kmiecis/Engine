@@ -23,8 +23,12 @@ namespace Engine
         m_Framebuffer = Framebuffer::Create(framebufferProperties);
 
         m_ActiveScene = CreateRef<Scene>();
+
         m_SquareEntity = m_ActiveScene->CreateEntity("Square");
         m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+
+        m_CameraEntity = m_ActiveScene->CreateEntity("Camera");
+        m_CameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
     }
 
     void EditorLayer::OnDetach()
@@ -33,6 +37,16 @@ namespace Engine
 
     void EditorLayer::OnUpdate(Timestep timestep)
     {
+        FramebufferProperties framebufferProperties = m_Framebuffer->GetProperties();
+        if (
+            m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f &&
+            (framebufferProperties.Width != m_ViewportSize.x || framebufferProperties.Height != m_ViewportSize.y)
+        )
+        {
+            m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+            m_CameraController.Resize(m_ViewportSize.x, m_ViewportSize.y);
+        }
+
         // Update
         if (m_IsViewportFocused)
         {
@@ -47,9 +61,7 @@ namespace Engine
         RenderCommand::Clear();
 
         // Update scene
-        Renderer2D::BeginScene(m_CameraController.GetCamera());
         m_ActiveScene->OnUpdate(timestep);
-        Renderer2D::EndScene();
         m_Framebuffer->Unbind();
     }
 

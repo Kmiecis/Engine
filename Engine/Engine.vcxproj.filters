@@ -1421,6 +1421,8 @@
     </ClInclude>
     <ClInclude Include="src\Engine\Scene\Entity.h" />
     <ClInclude Include="src\Engine\Scene\Components\TagComponent.h" />
+    <ClInclude Include="src\Engine\Scene\Components\CameraComponent.h" />
+    <ClInclude Include="src\Engine\Renderer\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">

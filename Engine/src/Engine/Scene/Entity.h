@@ -41,11 +41,11 @@ namespace Engine
 
 		operator bool() const
 		{
-			return m_Handle != entt::entity();
+			return m_Handle != entt::null;
 		}
 
 	private:
-		entt::entity m_Handle = entt::entity();
+		entt::entity m_Handle = entt::null;
 		Scene* m_Scene = nullptr;
 	};
 }

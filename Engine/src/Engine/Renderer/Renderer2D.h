@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Engine/Scene/Components.h"
 #include "Engine/Renderer/OrthographicCamera.h"
 #include "Engine/Renderer/Texture.h"
 
@@ -11,7 +12,9 @@ namespace Engine
 		static void Init();
 		static void Shutdown();
 
+		static void BeginScene(const glm::mat4& viewProjection);
 		static void BeginScene(const OrthographicCamera& camera);
+		static void BeginScene(const CameraComponent& camera, const TransformComponent& transform);
 		static void EndScene();
 		static void Flush();
 
