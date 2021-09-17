@@ -1423,6 +1423,7 @@
     <ClInclude Include="src\Engine\Scene\Components\TagComponent.h" />
     <ClInclude Include="src\Engine\Scene\Components\CameraComponent.h" />
     <ClInclude Include="src\Engine\Renderer\Camera.h" />
+    <ClInclude Include="src\Engine\Scene\SceneCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -1519,5 +1520,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Scene\Entity.cpp" />
+    <ClCompile Include="src\Engine\Scene\SceneCamera.cpp" />
   </ItemGroup>
 </Project>

@@ -28,7 +28,7 @@ namespace Engine
         m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
         m_CameraEntity = m_ActiveScene->CreateEntity("Camera");
-        m_CameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+        m_CameraEntity.AddComponent<CameraComponent>();
     }
 
     void EditorLayer::OnDetach()
@@ -45,6 +45,7 @@ namespace Engine
         {
             m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
             m_CameraController.Resize(m_ViewportSize.x, m_ViewportSize.y);
+            m_ActiveScene->OnResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
         }
 
         // Update
@@ -152,17 +153,7 @@ namespace Engine
                 Application::Get().GetImGuiLayer()->SetIsBlockingEvents(!m_IsViewportFocused || !m_IsViewportHovered);
 
                 ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-                if (
-                    (m_ViewportSize.x != viewportPanelSize.x ||
-                    m_ViewportSize.y != viewportPanelSize.y) &&
-                    (viewportPanelSize.x > 0.0f &&
-                    viewportPanelSize.y > 0.0f)
-                )
-                {
-                    m_ViewportSize = glm::vec2(viewportPanelSize.x, viewportPanelSize.y);
-                    m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-                    m_CameraController.Resize(m_ViewportSize.x, m_ViewportSize.y);
-                }
+                m_ViewportSize = glm::vec2(viewportPanelSize.x, viewportPanelSize.y);
 
                 uint32_t textureId = m_Framebuffer->GetColorAttachmentRendererID();
                 ImGui::Image((void*)textureId, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));

@@ -1,18 +1,15 @@
 #pragma once
 
-#include "Engine/Renderer/Camera.h"
+#include "Engine/Scene/SceneCamera.h"
 
 namespace Engine
 {
 	struct CameraComponent
 	{
-		Camera Camera;
+		SceneCamera Camera;
+		bool Fixed = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
-		CameraComponent(const glm::mat4& projection) :
-			Camera(projection)
-		{
-		}
 	};
 }
