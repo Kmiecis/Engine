@@ -29,6 +29,35 @@ namespace Engine
 
         m_CameraEntity = m_ActiveScene->CreateEntity("Camera");
         m_CameraEntity.AddComponent<CameraComponent>();
+
+        class CameraController : public ScriptableEntity
+        {
+        public:
+            void OnCreate()
+            {
+            }
+
+            void OnDestroy()
+            {
+            }
+
+            void OnUpdate(float dt)
+            {
+                auto& transform = GetComponent<TransformComponent>().Transform;
+                const float SPEED = 5.0f;
+
+                if (Input::IsKeyPressed(KeyCode::A))
+                    transform[3][0] -= SPEED * dt;
+                if (Input::IsKeyPressed(KeyCode::D))
+                    transform[3][0] += SPEED * dt;
+                if (Input::IsKeyPressed(KeyCode::W))
+                    transform[3][1] -= SPEED * dt;
+                if (Input::IsKeyPressed(KeyCode::S))
+                    transform[3][1] += SPEED * dt;
+            }
+        };
+
+        m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
     }
 
     void EditorLayer::OnDetach()

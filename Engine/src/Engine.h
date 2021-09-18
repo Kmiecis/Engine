@@ -18,6 +18,7 @@
 #include "Engine/Scene/Components.h"
 #include "Engine/Scene/Entity.h"
 #include "Engine/Scene/Scene.h"
+#include "Engine/Scene/ScriptableEntity.h"
 
 // --- RENDERER -----------------------
 #include "Engine/Renderer/Renderer.h"

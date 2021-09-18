@@ -29,6 +29,28 @@ namespace Engine
 
 	void Scene::OnUpdate(Timestep timestep)
 	{
+		// Scripts
+		m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+		{
+			if (!nsc.IsCreated())
+			{
+				nsc.Create();
+				nsc.m_Instance->m_Entity = Entity(entity, this);
+
+				if (nsc.OnCreate)
+				{
+					nsc.OnCreate();
+				}
+			}
+
+			if (nsc.OnUpdate)
+			{
+				nsc.OnUpdate(timestep.GetSeconds());
+			}
+		});
+
+
+		// Render
 		CameraComponent* mainCameraComponent = nullptr;
 		TransformComponent* mainTransformComponent = nullptr;
 
@@ -42,7 +64,6 @@ namespace Engine
 			break;
 		}
 
-		// Render
 		if (mainCameraComponent)
 		{
 			Renderer2D::BeginScene(*mainCameraComponent, *mainTransformComponent);

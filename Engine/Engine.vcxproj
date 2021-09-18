@@ -179,12 +179,14 @@
     <ClInclude Include="src\Engine\Renderer\VertexArray.h" />
     <ClInclude Include="src\Engine\Scene\Components.h" />
     <ClInclude Include="src\Engine\Scene\Components\CameraComponent.h" />
+    <ClInclude Include="src\Engine\Scene\Components\NativeScriptComponent.h" />
     <ClInclude Include="src\Engine\Scene\Components\SpriteRendererComponent.h" />
     <ClInclude Include="src\Engine\Scene\Components\TagComponent.h" />
     <ClInclude Include="src\Engine\Scene\Components\TransformComponent.h" />
     <ClInclude Include="src\Engine\Scene\Entity.h" />
     <ClInclude Include="src\Engine\Scene\Scene.h" />
     <ClInclude Include="src\Engine\Scene\SceneCamera.h" />
+    <ClInclude Include="src\Engine\Scene\ScriptableEntity.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
