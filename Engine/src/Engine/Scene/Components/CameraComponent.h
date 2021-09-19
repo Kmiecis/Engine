@@ -7,6 +7,7 @@ namespace Engine
 	struct CameraComponent
 	{
 		SceneCamera Camera;
+		bool Primary = true;
 		bool Fixed = false;
 
 		CameraComponent() = default;

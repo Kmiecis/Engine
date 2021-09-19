@@ -52,14 +52,17 @@ namespace Engine
 		{
 			auto& transformComponent = view.get<TransformComponent>(entity);
 			auto& cameraComponent = view.get<CameraComponent>(entity);
-			mainCameraComponent = &cameraComponent;
-			mainTransformComponent = &transformComponent;
-			break;
+			if (cameraComponent.Primary)
+			{
+				mainCameraComponent = &cameraComponent;
+				mainTransformComponent = &transformComponent;
+				break;
+			}
 		}
 
 		if (mainCameraComponent)
 		{
-			Renderer2D::BeginScene(*mainCameraComponent, *mainTransformComponent);
+			Renderer2D::BeginScene(mainCameraComponent->Camera.GetProjection(), mainTransformComponent->Transform);
 
 			auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 			for (auto entity : group)

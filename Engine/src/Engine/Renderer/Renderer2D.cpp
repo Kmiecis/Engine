@@ -121,9 +121,9 @@ namespace Engine
 		BeginScene(camera.GetViewProjectionMatrix());
 	}
 
-	void Renderer2D::BeginScene(const CameraComponent& camera, const TransformComponent& transform)
+	void Renderer2D::BeginScene(const glm::mat4& projection, const glm::mat4& transform)
 	{
-		glm::mat4 viewProjection = camera.Camera.GetProjection() * glm::inverse(transform.Transform);
+		glm::mat4 viewProjection = projection * glm::inverse(transform);
 		BeginScene(viewProjection);
 	}
 
