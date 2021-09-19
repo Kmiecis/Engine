@@ -24,14 +24,14 @@ namespace Engine
 
         m_ActiveScene = CreateRef<Scene>();
 
-        m_SquareEntity = m_ActiveScene->CreateEntity("Green Square");
-        m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+        auto greenSquare = m_ActiveScene->CreateEntity("Green Square");
+        greenSquare.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
         auto redSquare = m_ActiveScene->CreateEntity("Red Square");
         redSquare.AddComponent<SpriteRendererComponent>(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
-        m_CameraEntity = m_ActiveScene->CreateEntity("Camera");
-        m_CameraEntity.AddComponent<CameraComponent>();
+        auto camera = m_ActiveScene->CreateEntity("Camera");
+        camera.AddComponent<CameraComponent>();
 
         class CameraController : public ScriptableEntity
         {
@@ -60,7 +60,8 @@ namespace Engine
             }
         };
 
-        m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+        camera.AddComponent<NativeScriptComponent>()
+            .Bind<CameraController>();
 
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
@@ -166,7 +167,7 @@ namespace Engine
 
             m_SceneHierarchyPanel.OnImGuiRender();
 
-            if (ImGui::Begin("Settings"))
+            if (ImGui::Begin("Stats"))
             {
                 auto stats = Renderer2D::GetStats();
                 ImGui::Text("Renderer2D Stats:");
@@ -174,9 +175,6 @@ namespace Engine
                 ImGui::Text("Quads: %d", stats.QuadCount);
                 ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
                 ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-
-                auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
-                ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 
                 ImGui::End();
             }

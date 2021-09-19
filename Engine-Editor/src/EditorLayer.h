@@ -23,8 +23,6 @@ namespace Engine
         OrthographicCameraController m_CameraController;
 
         Ref<Scene> m_ActiveScene;
-        Entity m_SquareEntity;
-        Entity m_CameraEntity;
 
         Ref<Texture2D> m_CheckerBoardTexture;
         Ref<Texture2D> m_WhiteTexture;
@@ -34,8 +32,6 @@ namespace Engine
         bool m_IsViewportFocused = false;
         bool m_IsViewportHovered = false;
         glm::vec2 m_ViewportSize = glm::vec2(0.0f, 0.0f);
-
-        glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 
         SceneHierarchyPanel m_SceneHierarchyPanel;
     };
