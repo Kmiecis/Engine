@@ -64,7 +64,7 @@ namespace Engine
     {
     }
 
-    void EditorLayer::OnUpdate(Timestep timestep)
+    void EditorLayer::OnUpdate(float dt)
     {
         FramebufferProperties framebufferProperties = m_Framebuffer->GetProperties();
         if (
@@ -80,7 +80,7 @@ namespace Engine
         // Update
         if (m_IsViewportFocused)
         {
-            m_CameraController.OnUpdate(timestep);
+            m_CameraController.OnUpdate(dt);
         }
 
         Renderer2D::ResetStats();
@@ -91,7 +91,7 @@ namespace Engine
         RenderCommand::Clear();
 
         // Update scene
-        m_ActiveScene->OnUpdate(timestep);
+        m_ActiveScene->OnUpdate(dt);
         m_Framebuffer->Unbind();
     }
 
@@ -185,7 +185,7 @@ namespace Engine
                 m_ViewportSize = glm::vec2(viewportPanelSize.x, viewportPanelSize.y);
 
                 uint32_t textureId = m_Framebuffer->GetColorAttachmentRendererID();
-                ImGui::Image((void*)textureId, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+                ImGui::Image(reinterpret_cast<void*>(textureId), ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 
                 ImGui::End();
             }

@@ -19,24 +19,24 @@ namespace Engine
         return state == GLFW_PRESS;
     }
 
-    std::pair<float, float> Input::GetMousePosition()
+    glm::vec2 Input::GetMousePosition()
     {
         auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
         double xpos, ypos;
         glfwGetCursorPos(window, &xpos, &ypos);
 
-        return { (float)xpos, (float)ypos };
+        return glm::vec2(xpos, ypos);
     }
 
     float Input::GetMouseX()
     {
-        auto[x, y] = GetMousePosition();
-        return x;
+        glm::vec2 mousePosition = GetMousePosition();
+        return mousePosition.x;
     }
 
     float Input::GetMouseY()
     {
-        auto[x, y] = GetMousePosition();
-        return y;
+        glm::vec2 mousePosition = GetMousePosition();
+        return mousePosition.y;
     }
 }

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Engine/Core/Timestep.h"
-
 #include <entt.hpp>
 #include <string>
 
@@ -15,7 +13,7 @@ namespace Engine
 		Scene();
 		~Scene();
 
-		void OnUpdate(Timestep timestep);
+		void OnUpdate(float dt);
 		void OnResize(uint32_t width, uint32_t height);
 
 		entt::registry& GetRegistry();

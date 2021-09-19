@@ -65,13 +65,13 @@ namespace Engine
         while (m_Running)
         {
             float time = (float)glfwGetTime();
-            Timestep timestep = time - m_LastFrameTime;
+            float dt = time - m_LastFrameTime;
             m_LastFrameTime = time;
 
             if (!m_Minimized)
             {
                 for (Layer* layer : m_LayerStack)
-                    layer->OnUpdate(timestep);
+                    layer->OnUpdate(dt);
 
                 m_ImGuiLayer->Begin();
                 for (Layer* layer : m_LayerStack)

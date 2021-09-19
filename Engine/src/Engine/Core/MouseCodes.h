@@ -4,7 +4,7 @@
 
 namespace Engine
 {
-    typedef enum class MouseCode : uint16_t
+    enum MouseCode
     {
         // From glfw3.h
         Button0                = 0,
@@ -20,24 +20,5 @@ namespace Engine
         ButtonLeft             = Button0,
         ButtonRight            = Button1,
         ButtonMiddle           = Button2
-    } Mouse;
-    
-    inline std::ostream& operator<<(std::ostream& os, MouseCode mouseCode)
-    {
-        os << static_cast<int32_t>(mouseCode);
-        return os;
-    }
+    };
 }
-
-#define NG_MOUSE_BUTTON_0      ::Engine::Mouse::Button0
-#define NG_MOUSE_BUTTON_1      ::Engine::Mouse::Button1
-#define NG_MOUSE_BUTTON_2      ::Engine::Mouse::Button2
-#define NG_MOUSE_BUTTON_3      ::Engine::Mouse::Button3
-#define NG_MOUSE_BUTTON_4      ::Engine::Mouse::Button4
-#define NG_MOUSE_BUTTON_5      ::Engine::Mouse::Button5
-#define NG_MOUSE_BUTTON_6      ::Engine::Mouse::Button6
-#define NG_MOUSE_BUTTON_7      ::Engine::Mouse::Button7
-#define NG_MOUSE_BUTTON_LAST   ::Engine::Mouse::ButtonLast
-#define NG_MOUSE_BUTTON_LEFT   ::Engine::Mouse::ButtonLeft
-#define NG_MOUSE_BUTTON_RIGHT  ::Engine::Mouse::ButtonRight
-#define NG_MOUSE_BUTTON_MIDDLE ::Engine::Mouse::ButtonMiddle

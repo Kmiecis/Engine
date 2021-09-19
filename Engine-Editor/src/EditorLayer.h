@@ -13,7 +13,7 @@ namespace Engine
         void OnAttach() override;
         void OnDetach() override;
 
-        void OnUpdate(Timestep timestep) override;
+        void OnUpdate(float dt) override;
         void OnImGuiRender() override;
         void OnEvent(Event& event) override;
 

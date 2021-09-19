@@ -146,7 +146,7 @@
     <ClInclude Include="src\Engine\Core\Layer.h" />
     <ClInclude Include="src\Engine\Core\LayerStack.h" />
     <ClInclude Include="src\Engine\Core\MouseCodes.h" />
-    <ClInclude Include="src\Engine\Core\Timestep.h" />
+    <ClInclude Include="src\Engine\Core\PlatformDetection.h" />
     <ClInclude Include="src\Engine\Core\Window.h" />
     <ClInclude Include="src\Engine\Debug\Log.h" />
     <ClInclude Include="src\Engine\Debug\Profiling.h" />

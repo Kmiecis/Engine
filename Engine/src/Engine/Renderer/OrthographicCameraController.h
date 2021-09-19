@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Engine/Core/Timestep.h"
 #include "Engine/Events/ApplicationEvent.h"
 #include "Engine/Events/MouseEvent.h"
 #include "Engine/Renderer/OrthographicCamera.h"
@@ -14,7 +13,7 @@ namespace Engine
     public:
         OrthographicCameraController(float aspectRatio, bool rotation = false);
 
-        void OnUpdate(Timestep timestep);
+        void OnUpdate(float dt);
         void OnEvent(Event& event);
 
         OrthographicCamera& GetCamera() { return m_Camera; }

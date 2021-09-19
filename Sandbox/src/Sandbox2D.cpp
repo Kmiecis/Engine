@@ -20,10 +20,10 @@ void Sandbox2D::OnDetach()
 {
 }
 
-void Sandbox2D::OnUpdate(Engine::Timestep timestep)
+void Sandbox2D::OnUpdate(float dt)
 {
     // Update
-    m_CameraController.OnUpdate(timestep);
+    m_CameraController.OnUpdate(dt);
 
     Engine::Renderer2D::ResetStats();
     

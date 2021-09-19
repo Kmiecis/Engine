@@ -1,12 +1,17 @@
 #pragma once
 
-// For use by applications
+#include "Engine/Core/PlatformDetection.h"
+#ifdef NG_PLATFORM_WINDOWS
+	#ifndef NOMINMAX
+		#define NOMINMAX
+	#endif
+#endif
 
+// For use by applications
 #include "Engine/Core/Application.h"
+#include "Engine/Core/Base.h"
 #include "Engine/Core/Layer.h"
 #include "Engine/Debug/Log.h"
-
-#include "Engine/Core/Timestep.h"
 
 #include "Engine/Core/Input.h"
 #include "Engine/Core/KeyCodes.h"

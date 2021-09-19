@@ -12,36 +12,36 @@ namespace Engine
     {
     }
 
-    void OrthographicCameraController::OnUpdate(Timestep timestep)
+    void OrthographicCameraController::OnUpdate(float dt)
     {
-        if (Input::IsKeyPressed(NG_KEY_A))
+        if (Input::IsKeyPressed(KeyCode::A))
         {
-            m_CameraPosition.x -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * timestep;
-            m_CameraPosition.y -= sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * timestep;
+            m_CameraPosition.x -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * dt;
+            m_CameraPosition.y -= sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * dt;
         }
-        else if (Input::IsKeyPressed(NG_KEY_D))
+        else if (Input::IsKeyPressed(KeyCode::D))
         {
-            m_CameraPosition.x += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * timestep;
-            m_CameraPosition.y += sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * timestep;
+            m_CameraPosition.x += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * dt;
+            m_CameraPosition.y += sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * dt;
         }
 
-        if (Input::IsKeyPressed(NG_KEY_W))
+        if (Input::IsKeyPressed(KeyCode::W))
         {
-            m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * timestep;
-            m_CameraPosition.y += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * timestep;
+            m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * dt;
+            m_CameraPosition.y += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * dt;
         }
-        else if (Input::IsKeyPressed(NG_KEY_S))
+        else if (Input::IsKeyPressed(KeyCode::S))
         {
-            m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * timestep;
-            m_CameraPosition.y -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * timestep;
+            m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * dt;
+            m_CameraPosition.y -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * dt;
         }
 
         if (m_Rotation)
         {
-            if (Input::IsKeyPressed(NG_KEY_Q))
-                m_CameraRotation += m_CameraRotationSpeed * timestep;
-            if (Input::IsKeyPressed(NG_KEY_E))
-                m_CameraRotation -= m_CameraRotationSpeed * timestep;
+            if (Input::IsKeyPressed(KeyCode::Q))
+                m_CameraRotation += m_CameraRotationSpeed * dt;
+            if (Input::IsKeyPressed(KeyCode::E))
+                m_CameraRotation -= m_CameraRotationSpeed * dt;
 
             if (m_CameraRotation > 180.0f)
                 m_CameraRotation -= 360.0f;

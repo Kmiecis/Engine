@@ -27,26 +27,19 @@ namespace Engine
 		return entity;
 	}
 
-	void Scene::OnUpdate(Timestep timestep)
+	void Scene::OnUpdate(float dt)
 	{
 		// Scripts
 		m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
 		{
-			if (!nsc.IsCreated())
+			if (!nsc.m_Instance)
 			{
-				nsc.Create();
+				nsc.m_Instance = nsc.Create();
 				nsc.m_Instance->m_Entity = Entity(entity, this);
-
-				if (nsc.OnCreate)
-				{
-					nsc.OnCreate();
-				}
+				nsc.m_Instance->OnCreate();
 			}
 
-			if (nsc.OnUpdate)
-			{
-				nsc.OnUpdate(timestep.GetSeconds());
-			}
+			nsc.m_Instance->OnUpdate(dt);
 		});
 
 
@@ -71,7 +64,7 @@ namespace Engine
 			auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 			for (auto entity : group)
 			{
-				auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+				auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 				Renderer2D::DrawQuad(transform.Transform, sprite.Color);
 			}
 
