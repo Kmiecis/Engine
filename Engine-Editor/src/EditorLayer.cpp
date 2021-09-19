@@ -46,17 +46,17 @@ namespace Engine
 
             void OnUpdate(float dt)
             {
-                auto& transform = GetComponent<TransformComponent>().Transform;
+                auto& translation = GetComponent<TransformComponent>().Translation;
                 const float SPEED = 5.0f;
 
                 if (Input::IsKeyPressed(KeyCode::A))
-                    transform[3][0] -= SPEED * dt;
+                    translation.x -= SPEED * dt;
                 if (Input::IsKeyPressed(KeyCode::D))
-                    transform[3][0] += SPEED * dt;
+                    translation.x += SPEED * dt;
                 if (Input::IsKeyPressed(KeyCode::W))
-                    transform[3][1] -= SPEED * dt;
+                    translation.y -= SPEED * dt;
                 if (Input::IsKeyPressed(KeyCode::S))
-                    transform[3][1] += SPEED * dt;
+                    translation.y += SPEED * dt;
             }
         };
 
@@ -189,7 +189,7 @@ namespace Engine
                 ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
                 m_ViewportSize = glm::vec2(viewportPanelSize.x, viewportPanelSize.y);
 
-                uint32_t textureId = m_Framebuffer->GetColorAttachmentRendererID();
+                uint64_t textureId = m_Framebuffer->GetColorAttachmentRendererID();
                 ImGui::Image(reinterpret_cast<void*>(textureId), ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 
                 ImGui::End();

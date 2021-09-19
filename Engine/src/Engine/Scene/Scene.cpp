@@ -22,7 +22,7 @@ namespace Engine
 	Entity Scene::CreateEntity(const std::string& name)
 	{
 		Entity entity = Entity(m_Registry.create(), this);
-		entity.AddComponent<TransformComponent>(glm::mat4(1.0f));
+		entity.AddComponent<TransformComponent>();
 		entity.AddComponent<TagComponent>(name);
 		return entity;
 	}
@@ -62,13 +62,13 @@ namespace Engine
 
 		if (mainCameraComponent)
 		{
-			Renderer2D::BeginScene(mainCameraComponent->Camera.GetProjection(), mainTransformComponent->Transform);
+			Renderer2D::BeginScene(mainCameraComponent->Camera.GetProjection(), mainTransformComponent->GetTransform());
 
 			auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 			for (auto entity : group)
 			{
 				auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
-				Renderer2D::DrawQuad(transform.Transform, sprite.Color);
+				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
 			}
 
 			Renderer2D::EndScene();

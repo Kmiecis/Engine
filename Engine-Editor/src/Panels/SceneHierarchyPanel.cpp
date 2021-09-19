@@ -4,6 +4,7 @@
 #include "Engine/Scene/Entity.h"
 
 #include <imgui/imgui.h>
+#include <imgui/imgui_internal.h>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Engine
@@ -63,6 +64,79 @@ namespace Engine
 		}
 	}
 
+	void DrawVec3Control(const char* label, glm::vec3& values, float defaultValue)
+	{
+		const float COLUMN_WIDTH = 100.0f;
+		const float DRAG_SPEED = 0.1f;
+		const float DRAG_MIN = 0.0f;
+		const float DRAG_MAX = 0.0f;
+		const char* DRAG_FORMAT = "%.2f";
+		const ImVec4 BUTTON_COLOR_RED = ImVec4(0.8f, 0.1f, 0.15f, 1.0f);
+		const ImVec4 BUTTON_COLOR_RED_HOVERED = ImVec4(0.9f, 0.2f, 0.2f, 1.0f);
+		const ImVec4 BUTTON_COLOR_GREEN = ImVec4(0.2f, 0.7f, 0.2f, 1.0f);
+		const ImVec4 BUTTON_COLOR_GREEN_HOVERED = ImVec4(0.3f, 0.8f, 0.3f, 1.0f);
+		const ImVec4 BUTTON_COLOR_BLUE = ImVec4(0.1f, 0.25f, 0.8f, 1.0f);
+		const ImVec4 BUTTON_COLOR_BLUE_HOVERED = ImVec4(0.2f, 0.35f, 0.9f, 1.0f);
+
+		ImGui::PushID(label);
+
+		ImGui::Columns(2);
+		ImGui::SetColumnWidth(0, COLUMN_WIDTH);
+		ImGui::Text(label);
+		ImGui::NextColumn();
+
+		ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0.0f, 0.0f));
+		
+		const float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+		ImVec2 buttonSize = ImVec2(lineHeight + 3.0f, lineHeight);
+		
+		ImGui::PushStyleColor(ImGuiCol_Button, BUTTON_COLOR_RED);
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, BUTTON_COLOR_RED_HOVERED);
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, BUTTON_COLOR_RED);
+		if (ImGui::Button("X", buttonSize))
+		{
+			values.x = defaultValue;
+		}
+		ImGui::PopStyleColor(3);
+		ImGui::SameLine();
+		ImGui::DragFloat("##X", &values.x, DRAG_SPEED, DRAG_MIN, DRAG_MAX, DRAG_FORMAT);
+		ImGui::PopItemWidth();
+
+		ImGui::SameLine();
+
+		ImGui::PushStyleColor(ImGuiCol_Button, BUTTON_COLOR_GREEN);
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, BUTTON_COLOR_GREEN_HOVERED);
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, BUTTON_COLOR_GREEN);
+		if (ImGui::Button("Y", buttonSize))
+		{
+			values.y = defaultValue;
+		}
+		ImGui::PopStyleColor(3);
+		ImGui::SameLine();
+		ImGui::DragFloat("##Y", &values.y, DRAG_SPEED, DRAG_MIN, DRAG_MAX, DRAG_FORMAT);
+		ImGui::PopItemWidth();
+
+		ImGui::SameLine();
+
+		ImGui::PushStyleColor(ImGuiCol_Button, BUTTON_COLOR_BLUE);
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, BUTTON_COLOR_BLUE_HOVERED);
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, BUTTON_COLOR_BLUE);
+		if (ImGui::Button("Z", buttonSize))
+		{
+			values.z = defaultValue;
+		}
+		ImGui::PopStyleColor(3);
+		ImGui::SameLine();
+		ImGui::DragFloat("##Z", &values.z, DRAG_SPEED, DRAG_MIN, DRAG_MAX, DRAG_FORMAT);
+		ImGui::PopItemWidth();
+
+		ImGui::PopStyleVar();
+		ImGui::Columns(1);
+
+		ImGui::PopID();
+	}
+
 	void SceneHierarchyPanel::DrawComponents(Entity entity)
 	{
 		if (entity.HasComponent<TagComponent>())
@@ -83,13 +157,13 @@ namespace Engine
 		{
 			if (ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform"))
 			{
-				auto& transform = entity.GetComponent<TransformComponent>().Transform;
+				auto& transformComponent = entity.GetComponent<TransformComponent>();
 
-				const float DRAG_STEP = 0.1f;
-				if (ImGui::DragFloat3("Position", glm::value_ptr(transform[3]), DRAG_STEP))
-				{
-					// No need to do anything at this point...
-				}
+				DrawVec3Control("Translation", transformComponent.Translation, 0.0f);
+				glm::vec3 rotation = glm::degrees(transformComponent.Rotation);
+				DrawVec3Control("Rotation", rotation, 0.0f);
+				transformComponent.Rotation = glm::radians(rotation);
+				DrawVec3Control("Scale", transformComponent.Scale, 1.0f);
 
 				ImGui::TreePop();
 			}
