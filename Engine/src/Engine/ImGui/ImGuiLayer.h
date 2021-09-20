@@ -21,6 +21,7 @@ namespace Engine
         void End();
 
         void SetIsBlockingEvents(bool isBlockingEvents) { m_IsBlockingEvents = isBlockingEvents; }
+        void SetDarkThemeColors();
 
     private:
         bool m_IsBlockingEvents = true;

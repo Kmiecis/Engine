@@ -144,12 +144,18 @@ namespace Engine
                 ImGui::PopStyleVar(2);
 
             // DockSpace
+            const float WINDOW_MIN_WIDTH = 370.0f;
+
             ImGuiIO& io = ImGui::GetIO();
+            ImGuiStyle& style = ImGui::GetStyle();
+            float windowMinSizeX = style.WindowMinSize.x;
+            style.WindowMinSize.x = WINDOW_MIN_WIDTH;
             if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
             {
                 ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
                 ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
             }
+            style.WindowMinSize.x = windowMinSizeX;
 
             if (ImGui::BeginMenuBar())
             {

@@ -17,7 +17,9 @@ namespace Engine
 		T& AddComponent(Args&&... args)
 		{
 			NG_CORE_ASSERT(!HasComponent<T>(), "Entity already has component");
-			return m_Scene->GetRegistry().emplace<T>(m_Handle, std::forward<Args>(args)...);
+			T& component = m_Scene->GetRegistry().emplace<T>(m_Handle, std::forward<Args>(args)...);
+			m_Scene->OnComponentAdded<T>(*this, component);
+			return component;
 		}
 
 		template<typename T>
@@ -38,6 +40,11 @@ namespace Engine
 		{
 			NG_CORE_ASSERT(HasComponent<T>(), "Entity does not have component");
 			m_Scene->GetRegistry().remove<T>(m_Handle);
+		}
+
+		operator entt::entity() const
+		{
+			return m_Handle;
 		}
 
 		operator bool() const
