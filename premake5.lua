@@ -19,12 +19,14 @@ IncludeDir["imgui"] = "Engine/vendor/imgui"
 IncludeDir["glm"] = "Engine/vendor/glm"
 IncludeDir["stb_image"] = "Engine/vendor/stb_image"
 IncludeDir["entt"] = "Engine/vendor/entt/include"
+IncludeDir["yaml_cpp"] = "Engine/vendor/yaml-cpp/include"
 
 -- Includes .lua files at this directory
 group "Dependencies"
 	include "Engine/vendor/glfw"
 	include "Engine/vendor/glad"
 	include "Engine/vendor/imgui"
+	include "Engine/vendor/yaml-cpp"
 group ""
 
 project "Engine"
@@ -56,7 +58,8 @@ project "Engine"
 		"%{IncludeDir.imgui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.yaml_cpp}"
 	}
 	
 	links
@@ -64,7 +67,8 @@ project "Engine"
 		"GLFW",
 		"glad",
 		"ImGui",
-		"opengl32.lib"
+		"opengl32.lib",
+		"yaml-cpp"
 	}
 
 	filter "system:windows"

@@ -90,6 +90,9 @@
     <ClInclude Include="src\Engine\Core\MouseCodes.h">
       <Filter>src\Engine\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Core\PlatformDetection.h">
+      <Filter>src\Engine\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine\Core\Window.h">
       <Filter>src\Engine\Core</Filter>
     </ClInclude>
@@ -141,6 +144,9 @@
     <ClInclude Include="src\Engine\Renderer\Buffer.h">
       <Filter>src\Engine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\Camera.h">
+      <Filter>src\Engine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine\Renderer\Framebuffer.h">
       <Filter>src\Engine\Renderer</Filter>
     </ClInclude>
@@ -180,13 +186,31 @@
     <ClInclude Include="src\Engine\Scene\Components.h">
       <Filter>src\Engine\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Scene\Components\CameraComponent.h">
+      <Filter>src\Engine\Scene\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\Components\NativeScriptComponent.h">
+      <Filter>src\Engine\Scene\Components</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine\Scene\Components\SpriteRendererComponent.h">
+      <Filter>src\Engine\Scene\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\Components\TagComponent.h">
       <Filter>src\Engine\Scene\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Scene\Components\TransformComponent.h">
       <Filter>src\Engine\Scene\Components</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Scene\Entity.h">
+      <Filter>src\Engine\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine\Scene\Scene.h">
+      <Filter>src\Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\SceneCamera.h">
+      <Filter>src\Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\ScriptableEntity.h">
       <Filter>src\Engine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\common.hpp">
@@ -1416,14 +1440,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Scene\Entity.h" />
-    <ClInclude Include="src\Engine\Scene\Components\TagComponent.h" />
-    <ClInclude Include="src\Engine\Scene\Components\CameraComponent.h" />
-    <ClInclude Include="src\Engine\Renderer\Camera.h" />
-    <ClInclude Include="src\Engine\Scene\SceneCamera.h" />
-    <ClInclude Include="src\Engine\Scene\Components\NativeScriptComponent.h" />
-    <ClInclude Include="src\Engine\Scene\ScriptableEntity.h" />
-    <ClInclude Include="src\Engine\Core\PlatformDetection.h" />
+    <ClInclude Include="src\Engine\Scene\SceneSerializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Application.cpp">
@@ -1513,13 +1530,18 @@
     <ClCompile Include="src\Engine\Renderer\VertexArray.cpp">
       <Filter>src\Engine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Scene\Entity.cpp">
+      <Filter>src\Engine\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\Engine\Scene\Scene.cpp">
+      <Filter>src\Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Scene\SceneCamera.cpp">
       <Filter>src\Engine\Scene</Filter>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Scene\Entity.cpp" />
-    <ClCompile Include="src\Engine\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\Engine\Scene\SceneSerializer.cpp" />
   </ItemGroup>
 </Project>
