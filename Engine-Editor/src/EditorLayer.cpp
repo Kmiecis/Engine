@@ -4,19 +4,16 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Engine/Utils/PlatformUtils.h"
+
 namespace Engine
 {
-    EditorLayer::EditorLayer() : Layer("Editor"),
-        m_CameraController(1280.0f / 720.0f)
+    EditorLayer::EditorLayer() : Layer("Editor")
     {
     }
 
     void EditorLayer::OnAttach()
     {
-        m_CheckerBoardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
-        m_WhiteTexture = Texture2D::Create("assets/textures/1x1.png");
-        m_WhiteSubTexture = SubTexture2D::Create(m_WhiteTexture);
-
         FramebufferProperties framebufferProperties;
         framebufferProperties.Width = 1280;
         framebufferProperties.Height = 720;
@@ -80,14 +77,7 @@ namespace Engine
         )
         {
             m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-            m_CameraController.Resize(m_ViewportSize.x, m_ViewportSize.y);
             m_ActiveScene->OnResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-        }
-
-        // Update
-        if (m_IsViewportFocused)
-        {
-            m_CameraController.OnUpdate(dt);
         }
 
         Renderer2D::ResetStats();
@@ -162,15 +152,17 @@ namespace Engine
             {
                 if (ImGui::BeginMenu("File"))
                 {
-                    if (ImGui::MenuItem("Serialize"))
+                    if (ImGui::MenuItem("New", "Ctrl+N"))
                     {
-                        SceneSerializer serializer = SceneSerializer(m_ActiveScene);
-                        serializer.Serialize("assets/scenes/Example.ng");
+                        NewScene();
                     }
-                    if (ImGui::MenuItem("Deserialize"))
+                    if (ImGui::MenuItem("Open...", "Ctrl+O"))
                     {
-                        SceneSerializer serializer = SceneSerializer(m_ActiveScene);
-                        serializer.Deserialize("assets/scenes/Example.ng");
+                        OpenScene();
+                    }
+                    if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
+                    {
+                        SaveScene();
                     }
                     if (ImGui::MenuItem("Exit"))
                     {
@@ -219,6 +211,77 @@ namespace Engine
 
     void EditorLayer::OnEvent(Event& event)
     {
-        m_CameraController.OnEvent(event);
+        EventDispatcher dispatcher(event);
+        dispatcher.Dispatch<KeyPressedEvent>(NG_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+    }
+
+    bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
+    {
+        if (e.GetRepeatCount() > 0)
+        {   // Handling only shortcuts
+            return false;
+        }
+
+        bool isControlPressed = (
+            Input::IsKeyPressed(KeyCode::LeftControl) ||
+            Input::IsKeyPressed(KeyCode::RightControl)
+        );
+        bool isShiftPressed = (
+            Input::IsKeyPressed(KeyCode::LeftShift) ||
+            Input::IsKeyPressed(KeyCode::RightShift)
+        );
+
+        switch (e.GetKeyCode())
+        {
+            case KeyCode::N:
+                if (isControlPressed)
+                {
+                    NewScene();
+                }
+                break;
+            case KeyCode::O:
+                if (isControlPressed)
+                {
+                    OpenScene();
+                }
+                break;
+            case KeyCode::S:
+                if (isControlPressed && isShiftPressed)
+                {
+                    SaveScene();
+                }
+                break;
+        }
+    }
+
+    void EditorLayer::NewScene()
+    {
+        m_ActiveScene = CreateRef<Scene>();
+        m_ActiveScene->OnResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+    }
+
+    void EditorLayer::OpenScene()
+    {
+        const char* FILE_FILTER = "Engine Scene (*.ng)\0*.ng\0";
+        std::string filepath = FileDialog::OpenFile(FILE_FILTER);
+        if (!filepath.empty())
+        {
+            NewScene();
+
+            SceneSerializer serializer = SceneSerializer(m_ActiveScene);
+            serializer.Deserialize(filepath.c_str());
+        }
+    }
+
+    void EditorLayer::SaveScene()
+    {
+        const char* FILE_FILTER = "Engine Scene (*.ng)\0*.ng\0";
+        std::string filepath = FileDialog::SaveFile(FILE_FILTER);
+        if (!filepath.empty())
+        {
+            SceneSerializer serializer = SceneSerializer(m_ActiveScene);
+            serializer.Serialize(filepath.c_str());
+        }
     }
 }

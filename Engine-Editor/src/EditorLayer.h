@@ -20,13 +20,14 @@ namespace Engine
         void OnEvent(Event& event) override;
 
     private:
-        OrthographicCameraController m_CameraController;
+        bool OnKeyPressed(KeyPressedEvent& e);
+        void NewScene();
+        void OpenScene();
+        void SaveScene();
 
+    private:
         Ref<Scene> m_ActiveScene;
 
-        Ref<Texture2D> m_CheckerBoardTexture;
-        Ref<Texture2D> m_WhiteTexture;
-        Ref<SubTexture2D> m_WhiteSubTexture;
         Ref<Framebuffer> m_Framebuffer;
 
         bool m_IsViewportFocused = false;

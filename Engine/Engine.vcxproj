@@ -25,7 +25,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -188,6 +188,7 @@
     <ClInclude Include="src\Engine\Scene\SceneCamera.h" />
     <ClInclude Include="src\Engine\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Engine\Scene\ScriptableEntity.h" />
+    <ClInclude Include="src\Engine\Utils\PlatformUtils.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -614,6 +615,7 @@
     <ClCompile Include="src\Engine\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Engine\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\WindowsInput.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\WindowsPlatformUtils.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Engine\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Engine\Renderer\Framebuffer.cpp" />
